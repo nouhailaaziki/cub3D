@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/09 09:50:56 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/10 11:09:30 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,23 @@
 # define LAUNCHPAD_H
 
 /*--------------------- System & Library Includes ---------------------*/
-# include ".MLX42.h"
-# include <stdbool.h>
+# include ".MLX42.h"           // MLX42 graphics library
 # include <math.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 
 /*---------------------- Default Configuration ------------------------*/
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 1        // Buffer size for get_next_line
 # endif
 
-// # ifndef M_PI
-// #  define M_PI 3.14159265358979323846
-// # endif
-
 # ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 1500
+#  define SCREEN_WIDTH 1500    // Window width
 # endif
 
 # ifndef SCREEN_HEIGHT
-#  define SCREEN_HEIGHT 900
+#  define SCREEN_HEIGHT 900    // Window height
 # endif
 
 /*----------------------------- Structures ----------------------------*/
@@ -44,45 +38,59 @@
 /* RGB color representation */
 typedef struct s_colors
 {
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
+	unsigned int	r;         // Red component (0-255)
+	unsigned int	g;         // Green component (0-255)
+	unsigned int	b;         // Blue component (0-255)
 }	t_colors;
 
-/* Map & texture data */
+/* Map and texture data */
 typedef struct s_data
 {
-	char		*so;        // South texture
-	char		*we;        // West texture
-	char		*no;        // North texture
-	char		*ea;        // East texture
-	char		*f;         // Floor color string
-	char		*c;         // Ceiling color string
-	char		**map;      // 2D map layout
-	t_colors	floor;      // Parsed floor color
-	t_colors	ceiling;    // Parsed ceiling color
+	char		*so;           // South wall texture path
+	char		*we;           // West wall texture path
+	char		*no;           // North wall texture path
+	char		*ea;           // East wall texture path
+	char		*f;            // Floor color string
+	char		*c;            // Ceiling color string
+	char		**map;         // 2D map layout
+	t_colors	floor;         // Parsed floor RGB color
+	t_colors	ceiling;       // Parsed ceiling RGB color
 }	t_data;
 
-typedef struct s_player {
-    double  posX;       // player position X
-    double  posY;       // player position Y
-    double  dirX;       // direction vector X
-    double  dirY;       // direction vector Y
-    double  planeX;     // camera plane X (perpendicular to dir)
-    double  planeY;     // camera plane Y
-}   t_player;
+/* Player position and viewing direction */
+typedef struct s_player
+{
+	double	posx;              // Player X position in the map
+	double	posy;              // Player Y position in the map
+	double	dirx;              // Direction vector X
+	double	diry;              // Direction vector Y
+	double	planex;            // Camera plane X (perpendicular to dir)
+	double	planey;            // Camera plane Y
+}	t_player;
 
-/* Main struct holding all important parameters of the game */
+/* Main game engine struct */
 typedef struct s_engine
 {
-	int			map_width;
-	int			map_height;
-	int			player_x;
-	int			player_y;
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	t_data		data;
-	t_player	player;
+	int			mapx;          // Current map X coordinate
+	int			mapy;          // Current map Y coordinate
+	int			stepx;         // Step direction X for DDA
+	int			stepy;         // Step direction Y for DDA
+	int			side;          // Side of the wall hit (0=X, 1=Y)
+	int			lineheight;    // Height of the wall slice
+	int			drawstart;     // Start Y pixel for drawing wall
+	int			drawend;       // End Y pixel for drawing wall
+	double		camerax;       // Camera plane X for raycasting
+	double		raydirx;       // Ray direction X
+	double		raydiry;       // Ray direction Y
+	double		deltadistx;    // Distance to next X side
+	double		deltadisty;    // Distance to next Y side
+	double		sidedistx;     // Side distance X
+	double		sidedisty;     // Side distance Y
+	double		perpwalldist;  // Perpendicular distance to wall
+	mlx_t		*mlx;          // MLX window instance
+	mlx_image_t	*image;        // MLX image buffer
+	t_data		data;          // Map and texture data
+	t_player	player;        // Player info
 }	t_engine;
 
 /*----------------------------- Parsing --------------------------------*/
@@ -126,6 +134,14 @@ void	free_textures(t_data *data);
 void	free_cub3d(t_data *data);
 void	error_exit(char *message);
 
+/*------------------------ Raycasting Functions ------------------------*/
+int		master(t_engine *engine);
+void	render_horizon(t_engine *engine);
+void	setup_ray(t_engine *engine, int x);
+void	calculate_initial_distances(t_engine *engine);
+void	perform_dda(t_engine *engine);
+void	calculate_wall_projection(t_engine *engine);
+void	init_data(t_engine *engine);
+void	draw_vertical_line(t_engine *engine, int x, uint32_t color);
 
-int	master(t_engine *engine);
 #endif

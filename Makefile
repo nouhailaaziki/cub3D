@@ -3,8 +3,7 @@ COMPILER = cc
 CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
 #DBGFLAGS= -fsanitize=address -g3   
 
-FLMLX   = -framework OpenGL -framework AppKit \
-			libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
+FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
 
 RED     = \033[0;31m
 GREEN   = \033[0;32m
@@ -29,7 +28,8 @@ MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 			mandatory/utilities/ft_putchar_fd.c \
 			mandatory/parsing/parsing.c mandatory/parsing/parsing_utils1.c \
 			mandatory/parsing/parsing_utils2.c mandatory/parsing/main.c \
-			mandatory/raycasting/master.c 
+			mandatory/raycasting/master.c mandatory/raycasting/init_data.c \
+			mandatory/raycasting/raycasting.c mandatory/raycasting/render.c
 
 # BONUS =
 

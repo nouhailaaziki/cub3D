@@ -48,6 +48,5 @@ int main(int argc, char **argv)
         return(free_cub3d(&engine.data), 1);
     mlx_loop(engine.mlx);
     free_cub3d(&engine.data);
-    // printf("%f\n", M_PI);
     return (0);
 }
