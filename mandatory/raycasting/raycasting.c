@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/10 11:08:14 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/12 17:39:21 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,27 @@ void	set_initial_sides(t_engine *engine)
 	if (engine->raydirx < 0)
 	{
 		engine->stepx = -1;
-		engine->sidedistx = (engine->player.posx - engine->mapx) \
+		engine->sidedistx = (engine->player.posx - engine->mapx)
 		* engine->deltadistx;
 	}
 	else
 	{
 		engine->stepx = 1;
-		engine->sidedistx = (engine->mapx + 1.0 - engine->player.posx) \
+		engine->sidedistx = (engine->mapx + 1.0 - engine->player.posx)
 		* engine->deltadistx;
 	}
 	if (engine->raydiry < 0)
 	{
 		engine->stepy = -1;
-		engine->sidedisty = (engine->player.posy - engine->mapy) \
+		engine->sidedisty = (engine->player.posy - engine->mapy)
 		* engine->deltadisty;
 	}
 	else
 	{
 		engine->stepy = 1;
-		engine->sidedisty = (engine->mapy + 1.0 - engine->player.posy) \
+		engine->sidedisty = (engine->mapy + 1.0 - engine->player.posy)
 		* engine->deltadisty;
 	}
-}
-
-void	calculate_initial_distances(t_engine *engine)
-{
-	set_ray_deltas(engine);
-	set_initial_sides(engine);
 }
 
 void	perform_dda(t_engine *engine)
@@ -79,7 +73,7 @@ void	perform_dda(t_engine *engine)
 			engine->mapy += engine->stepy;
 			engine->side = 1;
 		}
-		if (engine->data.map[engine->mapx][engine->mapy] == '1')
+		if (engine->data.map[engine->mapy][engine->mapx] == '1')
 			hit = 1;
 	}
 }

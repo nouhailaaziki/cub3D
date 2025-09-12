@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/10 11:09:30 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/12 17:35:38 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 #  define SCREEN_HEIGHT 900    // Window height
 # endif
 
+# ifndef SPEED
+#  define SPEED 0.05
+# endif
 /*----------------------------- Structures ----------------------------*/
 
 /* RGB color representation */
@@ -138,7 +141,8 @@ void	error_exit(char *message);
 int		master(t_engine *engine);
 void	render_horizon(t_engine *engine);
 void	setup_ray(t_engine *engine, int x);
-void	calculate_initial_distances(t_engine *engine);
+void	set_ray_deltas(t_engine *engine);
+void	set_initial_sides(t_engine *engine);
 void	perform_dda(t_engine *engine);
 void	calculate_wall_projection(t_engine *engine);
 void	init_data(t_engine *engine);

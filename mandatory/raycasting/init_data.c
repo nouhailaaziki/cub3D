@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:37:12 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/10 11:09:12 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/12 16:31:16 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@ void	set_player_direction(t_player *player, char c)
 {
 	if (c == 'N')
 	{
-		1 && (player->dirx = -1, player->diry = 0);
-		1 && (player->planex = 0, player->planey = 0.66);
+		player->dirx = cos(3 * M_PI / 2);
+		player->diry = sin(3 * M_PI / 2);
 	}
 	else if (c == 'S')
 	{
-		1 && (player->dirx = 1, player->diry = 0);
-		1 && (player->planex = 0, player->planey = -0.66);
+		player->dirx = cos(M_PI / 2);
+		player->diry = sin(M_PI / 2);
 	}
 	else if (c == 'E')
 	{
-		1 && (player->dirx = 0, player->diry = 1);
-		1 && (player->planex = 0.66, player->planey = 0);
+		player->dirx = cos(0);
+		player->diry = sin(0);
 	}
 	else if (c == 'W')
 	{
-		1 && (player->dirx = 0, player->diry = -1);
-		1 && (player->planex = -0.66, player->planey = 0);
+		player->dirx = cos(M_PI);
+		player->diry = sin(M_PI);
 	}
+	player->planex = - player->diry * 0.66;
+	player->planey = player->dirx * 0.66;
 }
 
 void	init_data(t_engine *engine)
@@ -51,8 +53,8 @@ void	init_data(t_engine *engine)
 			if (map[i][j] == 'N' || map[i][j] == 'S' ||
 				map[i][j] == 'E' || map[i][j] == 'W')
 			{
-				engine->player.posx = i + 0.5;
-				engine->player.posy = j + 0.5;
+				engine->player.posy = i + 0.5;
+				engine->player.posx = j + 0.5;
 				set_player_direction(&engine->player, map[i][j]);
 				map[i][j] = '0';
 			}
