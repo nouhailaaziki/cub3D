@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/12 21:38:16 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 22:48:39 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,27 @@
 # include <unistd.h>
 
 /*---------------------- Default Configuration ------------------------*/
+
+/* Buffer size for get_next_line */
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1        // Buffer size for get_next_line
+#  define BUFFER_SIZE 1
 # endif
 
+/* Window width in pixels */
 # ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 1500    // Window width
+#  define SCREEN_WIDTH 1500
 # endif
 
+/* Window height in pixels */
 # ifndef SCREEN_HEIGHT
-#  define SCREEN_HEIGHT 900    // Window height
+#  define SCREEN_HEIGHT 900
 # endif
 
+/* Player movement speed */
 # ifndef SPEED
 #  define SPEED 0.05
 # endif
+
 /*----------------------------- Structures ----------------------------*/
 
 /* RGB color representation */
@@ -147,5 +153,9 @@ void	perform_dda(t_engine *engine);
 void	calculate_wall_projection(t_engine *engine);
 void	init_data(t_engine *engine);
 void	draw_vertical_line(t_engine *engine, int x, uint32_t color);
+void	raycast_frame(void *param);
+void	rotation_controller(void *param);
+void	wanderer_controls(void *param);
+void	farewell_wanderer(void *param);
 
 #endif

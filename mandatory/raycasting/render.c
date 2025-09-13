@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/12 16:27:36 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 22:07:59 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,27 @@ void	draw_vertical_line(t_engine *engine, int x, uint32_t color)
 	{
 		mlx_put_pixel(engine->image, x, y, color);
 		y++;
+	}
+}
+
+void	raycast_frame(void *param)
+{
+	t_engine	*engine;
+	int			x;
+
+	engine = (t_engine *)param;
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		setup_ray(engine, x);
+		set_ray_deltas(engine);
+		set_initial_sides(engine);
+		perform_dda(engine);
+		calculate_wall_projection(engine);
+		if (engine->side == 1)
+			draw_vertical_line(engine, x, 0xFF0000);
+		else
+			draw_vertical_line(engine, x, 0xFF0000);
+		x++;
 	}
 }

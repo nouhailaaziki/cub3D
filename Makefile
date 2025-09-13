@@ -29,7 +29,8 @@ MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 			mandatory/parsing/parsing.c mandatory/parsing/parsing_utils1.c \
 			mandatory/parsing/parsing_utils2.c mandatory/parsing/main.c \
 			mandatory/raycasting/master.c mandatory/raycasting/init_data.c \
-			mandatory/raycasting/raycasting.c mandatory/raycasting/render.c
+			mandatory/raycasting/raycasting.c mandatory/raycasting/render.c \
+			mandatory/raycasting/wanderer_controls.c mandatory/raycasting/rotation_controller.c
 
 # BONUS =
 

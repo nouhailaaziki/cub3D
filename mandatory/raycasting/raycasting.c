@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/12 17:39:21 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 10:57:03 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,25 @@ void	set_initial_sides(t_engine *engine)
 	{
 		engine->stepx = -1;
 		engine->sidedistx = (engine->player.posx - engine->mapx)
-		* engine->deltadistx;
+			* engine->deltadistx;
 	}
 	else
 	{
 		engine->stepx = 1;
 		engine->sidedistx = (engine->mapx + 1.0 - engine->player.posx)
-		* engine->deltadistx;
+			* engine->deltadistx;
 	}
 	if (engine->raydiry < 0)
 	{
 		engine->stepy = -1;
 		engine->sidedisty = (engine->player.posy - engine->mapy)
-		* engine->deltadisty;
+			* engine->deltadisty;
 	}
 	else
 	{
 		engine->stepy = 1;
 		engine->sidedisty = (engine->mapy + 1.0 - engine->player.posy)
-		* engine->deltadisty;
+			* engine->deltadisty;
 	}
 }
 

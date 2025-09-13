@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:37:12 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/12 16:31:16 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 10:57:45 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	set_player_direction(t_player *player, char c)
 		player->dirx = cos(M_PI);
 		player->diry = sin(M_PI);
 	}
-	player->planex = - player->diry * 0.66;
+	player->planex = -player->diry * 0.66;
 	player->planey = player->dirx * 0.66;
 }
 

@@ -46,7 +46,6 @@ int main(int argc, char **argv)
     // /////////////////////////
     if (master(&engine))
         return(free_cub3d(&engine.data), 1);
-    mlx_loop(engine.mlx);
     free_cub3d(&engine.data);
     return (0);
 }
