@@ -6,18 +6,20 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/13 22:07:59 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 23:40:36 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/launchpad.h"
 
-void	render_horizon(t_engine *engine)
+void	render_horizon(void *param)
 {
 	int	x;
 	int	y;
+	t_engine *engine;
 
 	y = 0;
+	engine = (t_engine *)param;
 	while (y < SCREEN_HEIGHT / 2)
 	{
 		x = 0;
@@ -60,6 +62,7 @@ void	raycast_frame(void *param)
 
 	engine = (t_engine *)param;
 	x = 0;
+	// render_2d_map(engine);
 	while (x < SCREEN_WIDTH)
 	{
 		setup_ray(engine, x);

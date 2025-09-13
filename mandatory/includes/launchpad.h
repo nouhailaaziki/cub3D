@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/13 22:48:39 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 23:38:53 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@
 #  define SPEED 0.05
 # endif
 
+# ifndef CELL_SIZE
+#  define CELL_SIZE 20
+# endif
 /*----------------------------- Structures ----------------------------*/
 
 /* RGB color representation */
@@ -145,7 +148,7 @@ void	error_exit(char *message);
 
 /*------------------------ Raycasting Functions ------------------------*/
 int		master(t_engine *engine);
-void	render_horizon(t_engine *engine);
+void	render_horizon(void *param);
 void	setup_ray(t_engine *engine, int x);
 void	set_ray_deltas(t_engine *engine);
 void	set_initial_sides(t_engine *engine);
@@ -157,5 +160,6 @@ void	raycast_frame(void *param);
 void	rotation_controller(void *param);
 void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
+void	render_2d_map(void *param);
 
 #endif
