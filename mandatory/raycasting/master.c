@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:53:22 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/12 21:38:11 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/13 10:48:28 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ void	setup_keys(void *param)
 		if (check_collision(engine, engine->player.posx, new_y))
 			engine->player.posy = new_y;
 	}
+	if (mlx_is_key_down(engine->mlx, MLX_KEY_ESCAPE))
+	{
+		ft_putstr_fd("You chose to escape... \
+SOLIDANGLE seals its gates behind you.\n", 1);
+		mlx_close_window(engine->mlx);
+	}
 }
 
 
@@ -121,6 +127,15 @@ void	raycast_frame(void *param)
 		x++;
 	}
 }
+void	close_window(void *param)
+{
+	t_engine *engine;
+
+	engine = (t_engine *)param;
+	ft_putstr_fd("SOLIDANGLE collapses into darkness. \
+Farewell, wanderer...\n", 1);
+	mlx_close_window(engine->mlx);
+}
 
 int	master(t_engine *engine)
 {
@@ -139,6 +154,8 @@ int	master(t_engine *engine)
 	mlx_loop_hook(engine->mlx, raycast_frame, engine);
 	mlx_loop_hook(engine->mlx, setup_rotation, engine);
 	mlx_loop_hook(engine->mlx, setup_keys, engine);
+	mlx_close_hook(engine->mlx, close_window, engine);
 	mlx_loop(engine->mlx);
+	mlx_terminate(engine->mlx);
 	return (0);
 }
