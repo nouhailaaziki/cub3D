@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 12:48:23 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/14 13:08:50 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../includes_bonus/launchpad_bonus.h"
 
 void	render_horizon(void *param)
 {
@@ -75,4 +75,5 @@ void	raycast_frame(void *param)
 			draw_vertical_line(engine, x, 0xFF0000);
 		x++;
 	}
+	render_minimap(engine);
 }

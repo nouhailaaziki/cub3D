@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotation_controller.c                              :+:      :+:    :+:   */
+/*   rotation_controller_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:10:53 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 12:44:37 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/14 12:42:56 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../includes_bonus/launchpad_bonus.h"
 
 void	rotate_player(t_engine *engine, double angle)
 {
@@ -38,4 +38,23 @@ void	rotate_via_keys(void *param)
 		rotate_player(engine, -0.01);
 	else if (mlx_is_key_down(engine->mlx, MLX_KEY_RIGHT))
 		rotate_player(engine, 0.01);
+}
+
+void	rotate_via_mouse(void *param)
+{
+	t_engine	*engine;
+	double		deltax;
+
+	engine = (t_engine *)param;
+	if (engine->mouse || mlx_is_key_down(engine->mlx, MLX_KEY_M))
+	{
+		engine->mouse = 1;
+		mlx_get_mouse_pos(engine->mlx, &engine->mousex, &engine->mousey);
+		deltax = engine->mousex - engine->prev_mousex;
+		engine->prev_mousex = engine->mousex;
+		if (deltax > 0)
+			rotate_player(engine, 0.01);
+		else if (deltax < 0)
+			rotate_player(engine, -0.01);
+	}
 }

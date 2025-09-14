@@ -13,10 +13,10 @@ BOLD    = \033[1m
 RESET   = \033[0m
 
 NAME    = cub3D
-# BONUS_NAME = cub3D_bonus
+BONUS_NAME = cub3D_bonus
 
 HEADER  = mandatory/includes/launchpad.h
-# HEADER_BONUS = bonus/includes/launchpad_bonus.h
+HEADER_BONUS = bonus/includes_bonus/launchpad_bonus.h
 
 MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 			mandatory/utilities/ft_atoi.c mandatory/utilities/ft_putendl_fd.c \
@@ -32,10 +32,23 @@ MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 			mandatory/raycasting/raycasting.c mandatory/raycasting/render.c \
 			mandatory/raycasting/wanderer_controls.c mandatory/raycasting/rotation_controller.c
 
-# BONUS =
+BONUS =	bonus/utilities_bonus/error_exit_bonus.c bonus/utilities_bonus/free_utils_bonus.c \
+		bonus/utilities_bonus/ft_atoi_bonus.c bonus/utilities_bonus/ft_putendl_fd_bonus.c \
+		bonus/utilities_bonus/ft_putstr_fd_bonus.c bonus/utilities_bonus/ft_split_bonus.c \
+		bonus/utilities_bonus/ft_strchr_bonus.c bonus/utilities_bonus/ft_strcmp_bonus.c \
+		bonus/utilities_bonus/ft_strdup_bonus.c bonus/utilities_bonus/ft_strjoin_bonus.c \
+		bonus/utilities_bonus/ft_strlen_bonus.c bonus/utilities_bonus/ft_strncmp_bonus.c \
+		bonus/utilities_bonus/ft_substr_bonus.c bonus/utilities_bonus/get_next_line_bonus.c \
+		bonus/utilities_bonus/ft_putchar_fd_bonus.c \
+		bonus/parsing_bonus/parsing_bonus.c bonus/parsing_bonus/parsing_utils1_bonus.c \
+		bonus/parsing_bonus/parsing_utils2_bonus.c bonus/parsing_bonus/main_bonus.c \
+		bonus/raycasting_bonus/master_bonus.c bonus/raycasting_bonus/init_data_bonus.c \
+		bonus/raycasting_bonus/raycasting_bonus.c bonus/raycasting_bonus/render_bonus.c \
+		bonus/raycasting_bonus/wanderer_controls_bonus.c bonus/raycasting_bonus/rotation_controller_bonus.c \
+		bonus/raycasting_bonus/setup_minimap.c
 
 OBJM = ${MANDATORY:.c=.o}
-# OBJB = ${BONUS:.c=.o}
+OBJB = ${BONUS:.c=.o}
 
 all: ${NAME}
 
@@ -46,7 +59,7 @@ ${NAME} : ${OBJM}
 
 bonus : ${OBJB}
 	@echo "${YELLOW} ${BOLD}➤ Launching compilation...${RESET}"
-	@${COMPILER} ${CFLAGS} ${FMLX} ${OBJB} -o ${NAME} ${FLMLX}
+	@${COMPILER} ${CFLAGS} ${FMLX} ${OBJB} -o ${BONUS_NAME} ${FLMLX}
 	@echo "${GREEN} ${BOLD}➤ ${NAME} successfully compiled ✓${RESET}"
 
 mandatory/%.o: mandatory/%.c ${HEADER}

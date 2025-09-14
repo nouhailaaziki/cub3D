@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launchpad.h                                        :+:      :+:    :+:   */
+/*   launchpad_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 13:09:34 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/14 13:09:38 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LAUNCHPAD_H
-# define LAUNCHPAD_H
+#ifndef LAUNCHPAD_BONUS_H
+# define LAUNCHPAD_BONUS_H
 
 /*--------------------- System & Library Includes ---------------------*/
 # include ".MLX42.h"           // MLX42 graphics library
@@ -91,6 +91,10 @@ typedef struct s_engine
 	int			lineheight;    // Height of the wall slice
 	int			drawstart;     // Start Y pixel for drawing wall
 	int			drawend;       // End Y pixel for drawing wall
+	short		mouse;
+	int32_t		mousex;
+	int32_t		mousey;
+	int32_t		prev_mousex;
 	double		camerax;       // Camera plane X for raycasting
 	double		raydirx;       // Ray direction X
 	double		raydiry;       // Ray direction Y
@@ -158,7 +162,9 @@ void	init_data(t_engine *engine);
 void	draw_vertical_line(t_engine *engine, int x, uint32_t color);
 void	raycast_frame(void *param);
 void	rotate_via_keys(void *param);
+void	rotate_via_mouse(void *param);
 void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
+void	render_minimap(t_engine *engine);
 
 #endif

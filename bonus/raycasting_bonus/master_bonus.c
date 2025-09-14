@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   master.c                                           :+:      :+:    :+:   */
+/*   master_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:53:22 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 12:45:49 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/14 12:46:28 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../includes_bonus/launchpad_bonus.h"
 
 int	master(t_engine *engine)
 {
@@ -28,6 +28,8 @@ int	master(t_engine *engine)
 		return (mlx_strerror(mlx_errno), 1);
 	mlx_loop_hook(engine->mlx, raycast_frame, engine);
 	mlx_loop_hook(engine->mlx, rotate_via_keys, engine);
+	mlx_loop_hook(engine->mlx, rotate_via_mouse, engine);
+	mlx_set_cursor_mode(engine->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(engine->mlx, wanderer_controls, engine);
 	mlx_close_hook(engine->mlx, farewell_wanderer, engine);
 	mlx_loop(engine->mlx);
