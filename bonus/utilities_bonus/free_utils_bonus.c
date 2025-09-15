@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   free_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 12:43:58 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/09/03 14:21:21 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/09/14 09:01:22 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../includes_bonus/launchpad_bonus.h"
 
 void	free_array(char **array)
 {
@@ -43,34 +43,34 @@ void	free_textures(t_data *data)
 		free(data->c);
 }
 
-void free_cub3d(t_data *data)
+void	free_cub3d(t_data *data)
 {
-    if (data->map)
-        free_array(data->map);
-    if (data->so)
-        free(data->so);
-    if (data->we)
-        free(data->we);
-    if (data->no)
-        free(data->no);
-    if (data->ea)
-        free(data->ea);
-    if (data->f)
-        free(data->f);
-    if (data->c)
-        free(data->c);
+	if (data->map)
+		free_array(data->map);
+	if (data->so)
+		free(data->so);
+	if (data->we)
+		free(data->we);
+	if (data->no)
+		free(data->no);
+	if (data->ea)
+		free(data->ea);
+	if (data->f)
+		free(data->f);
+	if (data->c)
+		free(data->c);
 }
 
-int openning_file(char *av)
+int	openning_file(char *av)
 {
-    int fd;
+	int	fd;
 
-    fd = open(av, O_RDONLY);
-    if (fd == -1)
-    {
-        write(2, "Error\n", 6);
-        ft_putstr_fd("Failed to open the file\n", 2);
-        exit(1);
-    }
-    return (fd);
+	fd = open(av, O_RDONLY);
+	if (fd == -1)
+	{
+		write(2, "Error\n", 6);
+		ft_putstr_fd("Failed to open the file\n", 2);
+		exit(1);
+	}
+	return (fd);
 }

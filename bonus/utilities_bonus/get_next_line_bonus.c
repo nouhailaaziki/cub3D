@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 15:34:26 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/08/29 21:11:07 by marvin           ###   ########.fr       */
+/*   Created: 2024/11/30 15:58:55 by noaziki           #+#    #+#             */
+/*   Updated: 2025/09/14 09:01:22 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../includes_bonus/launchpad_bonus.h"
 
 static void	free_it(char **s)
 {
