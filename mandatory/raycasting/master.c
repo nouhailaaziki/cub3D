@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:53:22 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 12:45:49 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/01 19:33:06 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	master(t_engine *engine)
 {
 	init_data(engine);
+	if (load_textures(engine) != 0)
+		return (1);
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	engine->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT,
 			"Welcome to SOLIDANGLE's game!", false);

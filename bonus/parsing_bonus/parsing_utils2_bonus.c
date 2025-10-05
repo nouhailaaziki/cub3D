@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/09/15 16:01:25 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:33:49 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	null_elements(char *el)
 	return (0);
 }
 
-int	check_wrong_el(char *line)
+int	validate_map_char(char *line)
 {
 	int	i;
 	int	cp;
@@ -33,14 +33,14 @@ int	check_wrong_el(char *line)
 			&& line[i] != 'S' && line[i] != 'N'
 			&& line[i] != 'W' && line[i] != 'E'
 			&& line[i] != 'D' && line[i] != '\r')
-			return (1);
+			return (error_exit("Wrong char in the map"), 1);
 		if (line[i] == 'S' || line[i] == 'N'
 			|| line[i] == 'W' || line[i] == 'E')
 			cp++;
 		i++;
 	}
 	if (cp != 1)
-		return (1);
+		return (error_exit("It should be just 1 player"), 1);
 	return (0);
 }
 
@@ -74,9 +74,7 @@ int	check_colors(char *line, t_colors *color)
 	i = ft_strlen(line) - 1;
 	while (i >= 0 && (line[i] == '\n' || line[i] == '\r'))
 		line[i--] = '\0';
-	parts = ft_split(line, ',');
-	if (!parts)
-		return (error_exit("Memory allocation failed"), 1);
+	parts = ft_my_split(line, ',');
 	i = 0;
 	while (parts[i])
 		i++;

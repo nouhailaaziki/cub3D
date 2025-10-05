@@ -6,54 +6,34 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:09:51 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/09/15 15:10:18 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:34:07 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_bonus/launchpad_bonus.h"
 
-int	is_invalid(char **map, int i, int j, int h)
+int	iszeroplayerdoor(char c)
 {
-	int	len_curr;
-	int	len_next;
-	int	len_prev;
-
-	len_curr = ft_strlen(map[i]);
-	len_next = 0;
-	if (i + 1 < h)
-		len_next = ft_strlen(map[i + 1]);
-	len_prev = 0;
-	if (i - 1 >= 0)
-		len_prev = ft_strlen(map[i - 1]);
-	if (j + 1 >= len_curr || j - 1 < 0)
-		return (1);
-	if (i + 1 >= h || j >= len_next)
-		return (1);
-	if (i - 1 < 0 || j >= len_prev)
-		return (1);
-	return (0);
+	return (c == '0' || c == 'N' || c == 'W' || c == 'E' || c == 'S'
+		|| c == 'D');
 }
 
 int	check_boundiries(char **map)
 {
 	int	i;
 	int	j;
-	int	height;
 
-	height = 0;
-	while (map[height])
-		height++;
 	i = 0;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == '0')
-			{
-				if (is_invalid(map, i, j, height))
-					return (1);
-			}
+			if (iszeroplayerdoor(map[i][j]) && (i == 0 || j == 0
+			|| !map[i][j + 1] || !map[i + 1] || check_zero(map[i][j + 1])
+			|| check_zero(map[i][j - 1]) || check_zero(map[i + 1][j])
+			|| check_zero(map[i - 1][j])))
+				return (1);
 			j++;
 		}
 		i++;

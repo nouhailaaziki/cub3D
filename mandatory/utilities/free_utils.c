@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 12:43:58 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/09/06 14:38:15 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/09/27 15:19:02 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,6 @@ void	free_array(char **array)
 		i++;
 	}
 	free(array);
-}
-
-void	free_textures(t_data *data)
-{
-	if (data->no)
-		free(data->no);
-	if (data->so)
-		free(data->so);
-	if (data->we)
-		free(data->we);
-	if (data->ea)
-		free(data->ea);
-	if (data->f)
-		free(data->f);
-	if (data->c)
-		free(data->c);
 }
 
 void	free_cub3d(t_data *data)

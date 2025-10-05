@@ -1,7 +1,7 @@
 COMPILER = cc
 
 CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
-#DBGFLAGS= -fsanitize=address -g3   
+DBGFLAGS= -fsanitize=address -g3   
 
 FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
 
@@ -20,12 +20,12 @@ HEADER_BONUS = bonus/includes_bonus/launchpad_bonus.h
 
 MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 			mandatory/utilities/ft_atoi.c mandatory/utilities/ft_putendl_fd.c \
-			mandatory/utilities/ft_putstr_fd.c mandatory/utilities/ft_split.c \
+			mandatory/utilities/ft_putstr_fd.c mandatory/utilities/ft_split.c  mandatory/utilities/ft_my_split.c \
 			mandatory/utilities/ft_strchr.c mandatory/utilities/ft_strcmp.c \
 			mandatory/utilities/ft_strdup.c mandatory/utilities/ft_strjoin.c \
 			mandatory/utilities/ft_strlen.c mandatory/utilities/ft_strncmp.c  mandatory/utilities/ft_isdigit.c\
 			mandatory/utilities/ft_substr.c mandatory/utilities/get_next_line.c \
-			mandatory/utilities/ft_putchar_fd.c\
+			mandatory/utilities/ft_putchar_fd.c mandatory/textures/build_textures1.c mandatory/textures/build_textures2.c\
 			mandatory/parsing/parsing.c mandatory/parsing/parsing_utils1.c  mandatory/parsing/parsing_utils2.c\
 			mandatory/parsing/parsing_utils3.c mandatory/parsing/parsing_utils4.c  mandatory/parsing/main.c \
 			mandatory/raycasting/master.c mandatory/raycasting/init_data.c \
@@ -34,7 +34,7 @@ MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 
 BONUS =	bonus/utilities_bonus/error_exit_bonus.c bonus/utilities_bonus/free_utils_bonus.c \
 		bonus/utilities_bonus/ft_atoi_bonus.c bonus/utilities_bonus/ft_putendl_fd_bonus.c \
-		bonus/utilities_bonus/ft_putstr_fd_bonus.c bonus/utilities_bonus/ft_split_bonus.c \
+		bonus/utilities_bonus/ft_putstr_fd_bonus.c bonus/utilities_bonus/ft_split_bonus.c  bonus/utilities_bonus/ft_my_split_bonus.c\
 		bonus/utilities_bonus/ft_strchr_bonus.c bonus/utilities_bonus/ft_strcmp_bonus.c \
 		bonus/utilities_bonus/ft_strdup_bonus.c bonus/utilities_bonus/ft_strjoin_bonus.c \
 		bonus/utilities_bonus/ft_strlen_bonus.c bonus/utilities_bonus/ft_strncmp_bonus.c \
@@ -45,7 +45,7 @@ BONUS =	bonus/utilities_bonus/error_exit_bonus.c bonus/utilities_bonus/free_util
 		bonus/raycasting_bonus/master_bonus.c bonus/raycasting_bonus/init_data_bonus.c \
 		bonus/raycasting_bonus/raycasting_bonus.c bonus/raycasting_bonus/render_bonus.c \
 		bonus/raycasting_bonus/wanderer_controls_bonus.c bonus/raycasting_bonus/rotation_controller_bonus.c \
-		bonus/raycasting_bonus/setup_minimap.c
+		bonus/raycasting_bonus/setup_minimap.c bonus/textures_bonus/build_textures1_bonus.c bonus/textures_bonus/build_textures2_bonus.c
 
 OBJM = ${MANDATORY:.c=.o}
 OBJB = ${BONUS:.c=.o}

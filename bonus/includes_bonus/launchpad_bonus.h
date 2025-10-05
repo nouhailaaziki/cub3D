@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/15 16:00:07 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/04 12:57:09 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define TEX_NORTH 0
+# define TEX_SOUTH 1  
+# define TEX_EAST 2
+# define TEX_WEST 3
 /*---------------------- Default Configuration ------------------------*/
 
 /* Buffer size for get_next_line */
@@ -69,6 +73,12 @@ typedef struct s_data
 	t_colors	ceiling;       // Parsed ceiling RGB color
 }	t_data;
 
+typedef struct s_tex_data {
+	int	tex_x;  //The horizontal coordinate in the texture (0 to texture width-1)
+	int	tex_y;  //The vertical coordinate in the texture (0 to texture height-1)
+}	t_tex_data;
+
+
 /* Player position and viewing direction */
 typedef struct s_player
 {
@@ -103,23 +113,33 @@ typedef struct s_engine
 	double		sidedistx;     // Side distance X
 	double		sidedisty;     // Side distance Y
 	double		perpwalldist;  // Perpendicular distance to wall
+	double		wall_x;		   // the exact position where the ray hit the wall
+	double		tex_pos;	   //Tracks the vertical position in the texture as we draw the wall slice
 	mlx_t		*mlx;          // MLX window instance
 	mlx_image_t	*image;        // MLX image buffer
 	t_data		data;          // Map and texture data
 	t_player	player;        // Player info
+	mlx_texture_t        *so;  // South wall texture path
+    mlx_texture_t        *we;  // West wall texture path
+    mlx_texture_t        *no;  // North wall texture path
+    mlx_texture_t        *ea;  // East wall texture path
+	mlx_texture_t        *current_tex; // pointer to which texture we're currently using
 }	t_engine;
 
 /*----------------------------- Parsing --------------------------------*/
 int		init_data_elements(t_data *data);
 int		parse_elements(int fd, t_data *data);
 char	*skip_empty_lines(int fd);
+int		is_empty_line(char *line);
 char	*parse_map_lines(int fd, char *line);
 int		new_parsing(char *file, t_data *data);
 void	getmap_dimentions(char **map, int *h, int *w);
 void	extract_elements(char *line, int *cp, t_data *data);
 int		null_elements(char *el);
-int		check_wrong_el(char *line);
-void	fix_map(char ***map_2d, int width);
+int		is_map_start(const char *line);
+int		handle_line(char *line, int *cp, t_data *data);
+int		validate_map_char(char *line);
+void	map_rectangular(char ***map_2d, int width);
 void	the_right_line(int width, char **s);
 
 /*----------------------------- File Utils -----------------------------*/
@@ -143,6 +163,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 int		ft_isdigit(int c);
 void	free_array(char **arr);
+char 	**ft_my_split(char *s, char c);
 
 /*---------------------------- Color Checks ----------------------------*/
 int		ft_is_valid_color_value(char *s);
@@ -151,12 +172,11 @@ char	*get_data(char *line, char c);
 
 /*----------------------------- Map Checks -----------------------------*/
 int		check_zero(char c);
-int		is_invalid(char **map, int i, int j, int h);
 int		check_boundiries(char **map);
+int		iszeroplayerdoor(char c);
 
 /*----------------------------- Free & Exit ----------------------------*/
 void	free_array(char **array);
-void	free_textures(t_data *data);
 void	free_cub3d(t_data *data);
 void	error_exit(char *message);
 
@@ -169,7 +189,7 @@ void	set_initial_sides(t_engine *engine);
 void	perform_dda(t_engine *engine);
 void	calculate_wall_projection(t_engine *engine);
 void	init_data(t_engine *engine);
-void	draw_vertical_line(t_engine *engine, int x, uint32_t color);
+// void	draw_vertical_line(t_engine *engine, int x, uint32_t color);
 void	raycast_frame(void *param);
 void	rotate_via_keys(void *param);
 void	rotate_via_mouse(void *param);
@@ -177,4 +197,12 @@ void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
 void	render_minimap(t_engine *engine);
 
+/*---------------------------- Textures -----------------------------*/
+int				load_textures(t_engine *engine);
+int				get_texture_index(t_engine *engine);
+mlx_texture_t	*get_texture(t_engine *e, int t);
+void			calculate_texture_data(t_engine *e);
+void			draw_textured_line(t_engine *e, int x, int t);
+void			draw_textured_pixel(t_engine *engine, int x, int y,
+					mlx_texture_t *tex);
 #endif
