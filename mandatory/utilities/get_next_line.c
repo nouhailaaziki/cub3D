@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:58:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/06 12:41:04 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/05 19:50:05 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/launchpad.h"
 
-static void	free_it(char **s)
-{
-	free(*s);
-	*s = NULL;
-}
-
-static char	*check_backup(char **backup )
+char	*check_backup(char **backup )
 {
 	char	*line;
 	char	*temp;
@@ -30,9 +24,6 @@ static char	*check_backup(char **backup )
 	line = ft_substr(backup[0], 0, count + 1);
 	temp = *backup;
 	*backup = ft_substr(temp, count + 1, ft_strlen(temp) - count);
-	if (*backup[0] == '\0')
-		free_it(backup);
-	free_it(&temp);
 	return (line);
 }
 
@@ -52,21 +43,20 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf = malloc(BUFFER_SIZE + 1);
+	buf = ft_alloc(BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
 	while (1)
 	{
 		read_line = read(fd, buf, BUFFER_SIZE);
 		if (read_line == -1)
-			return (free_it(&buf), free_it(&backup), NULL);
+			return (NULL);
 		else if (read_line == 0)
 			break ;
 		check_buf(&buf, &backup, read_line);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	free_it(&buf);
 	if (!backup || *backup == '\0')
 		return (NULL);
 	return (check_backup(&backup));

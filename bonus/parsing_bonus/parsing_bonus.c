@@ -37,7 +37,6 @@ int	parse_elements(int fd, t_data *data)
 					"Missing required elements (NO, SO, WE, EA, F, C)"), 0);
 		if (!handle_line(line, &cp, data))
 			return (0);
-		free(line);
 		if (cp == 6)
 			break ;
 	}

@@ -1,40 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_bonus.c                                 :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 10:45:59 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/05 18:30:23 by hajel-ho         ###   ########.fr       */
+/*   Created: 2025/10/05 20:10:44 by hajel-ho          #+#    #+#             */
+/*   Updated: 2025/10/05 20:34:23 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "./includes_bonus/launchpad_bonus.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+void	free_all(void *p, int flag)
 {
-	size_t	i;
-	size_t	j;
-	char	*s3;
+	static void	*list[INT_MAX];
+	static int	i;
 
-	i = 0;
-	j = 0;
-	if (!s1 && !s2)
-		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	s3 = (char *)ft_alloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!s3)
-		return (NULL);
-	while (s1[i])
+	if (flag)
 	{
-		s3[i] = s1[i];
+		list[i] = p;
 		i++;
 	}
-	while (s2[j])
-		s3[i++] = s2[j++];
-	return (s3[i] = '\0', s3);
+	else
+	{
+		while (list[i])
+		{
+			free(list[i]);
+			i--;
+		}
+	}
+}
+
+void	ft_done(size_t i)
+{
+	free_all(NULL, 0);
+	exit (i);
+}
+
+void	*ft_alloc(size_t i)
+{
+	void	*res;
+
+	res = malloc(i);
+	if (!res)
+		ft_done(0);
+	free_all(res, 1);
+	return (res);
 }

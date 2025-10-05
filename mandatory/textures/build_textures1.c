@@ -72,3 +72,15 @@ void	draw_textured_pixel(t_engine *engine, int x, int y,
 	color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
 	mlx_put_pixel(engine->image, x, y, color);
 }
+
+void	cleanup_textures(t_engine *engine)
+{
+	if (engine->no)
+		mlx_delete_texture(engine->no);
+	if (engine->so)
+		mlx_delete_texture(engine->so);
+	if (engine->ea)
+		mlx_delete_texture(engine->ea);
+	if (engine->we)
+		mlx_delete_texture(engine->we);
+}

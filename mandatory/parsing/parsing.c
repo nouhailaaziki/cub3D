@@ -37,7 +37,6 @@ int	parse_elements(int fd, t_data *data)
 					"Missing required elements (NO, SO, WE, EA, F, C)"), 0);
 		if (!handle_line(line, &cp, data))
 			return (0);
-		free(line);
 		if (cp == 6)
 			break ;
 	}
@@ -82,16 +81,21 @@ char	*skip_empty_lines(int fd)
 char	*parse_map_lines(int fd, char *line)
 {
 	char	*map_line;
+	char	*tmp;
 
 	map_line = NULL;
 	while (line)
 	{
 		if (is_empty_line(line))
+		{
 			return (error_exit("New lines in map"), NULL);
-		map_line = ft_strjoin(map_line, line);
-		free (line);
+		}
+		tmp = ft_strjoin(map_line, line);
+		map_line = tmp;
 		line = get_next_line(fd);
 	}
+	if (!map_line)
+		return (error_exit("Empty map"), NULL);
 	if (validate_map_char(map_line))
 		return (error_exit("Something wrong in the map"), NULL);
 	return (map_line);

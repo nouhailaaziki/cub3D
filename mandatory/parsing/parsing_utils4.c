@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:07:02 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/04 18:09:43 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:07:59 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,24 @@ int	handle_line(char *line, int *cp, t_data *data)
 	else if (is_empty_line(line))
 		;
 	else if (is_map_start(line))
-		return (free(line),
-			error_exit("Map found before all required elements"), 0);
+		return (error_exit("Map found before all required elements"), 0);
 	else
-		return (free(line),
-			error_exit("Invalid line before elements"), 0);
+		return (error_exit("Invalid line before elements"), 0);
 	return (1);
+}
+
+int	openning_file(char *av)
+{
+	int	fd;
+
+	fd = open(av, O_RDONLY);
+	if (fd == -1)
+	{
+		write(2, "Error\n", 6);
+		ft_putstr_fd("Failed to open the file\n", 2);
+		exit(1);
+	}
+	return (fd);
 }
 
 int	new_parsing(char *file, t_data *data)
@@ -67,7 +79,7 @@ int	new_parsing(char *file, t_data *data)
 	init_data_elements(data);
 	fd = openning_file(file);
 	if (!parse_elements(fd, data))
-		return (0);
+		return (close(fd), 0);
 	line = skip_empty_lines(fd);
 	map_line = parse_map_lines(fd, line);
 	if (!map_line)

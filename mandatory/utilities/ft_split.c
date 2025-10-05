@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:02:59 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/27 14:52:44 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:30:23 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,6 @@ static size_t	ft_counter(char *s, char c)
 	return (count);
 }
 
-static void	**ft_free(char **arr, size_t count)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	return (NULL);
-}
-
 static char	**ft_fill_arr(char *s, char c, char **arr)
 {
 	size_t		i;
@@ -71,7 +57,7 @@ static char	**ft_fill_arr(char *s, char c, char **arr)
 		end = i - 1;
 		arr[j] = ft_substr(s, start, (end - start) + 1);
 		if (!arr[j])
-			return (ft_free(arr, j), NULL);
+			return (NULL);
 		j++;
 	}
 	arr[j] = 0;
@@ -86,7 +72,7 @@ char	**ft_split(char *s, char c)
 	if (!s)
 		return (NULL);
 	word_count = ft_counter(s, c);
-	result = (char **)malloc((word_count + 1) * sizeof(char *));
+	result = (char **)ft_alloc((word_count + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
 	result = ft_fill_arr(s, c, result);

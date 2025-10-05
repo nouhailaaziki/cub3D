@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:26:59 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/01 20:05:16 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:27:54 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,16 @@ void	draw_textured_pixel(t_engine *engine, int x, int y,
 			+ tex_data.tex_x) * 4];
 	color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
 	mlx_put_pixel(engine->image, x, y, color);
+}
+
+void	cleanup_textures(t_engine *engine)
+{
+	if (engine->no)
+		mlx_delete_texture(engine->no);
+	if (engine->so)
+		mlx_delete_texture(engine->so);
+	if (engine->ea)
+		mlx_delete_texture(engine->ea);
+	if (engine->we)
+		mlx_delete_texture(engine->we);
 }

@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:09:51 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/04 20:34:07 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:26:48 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_bspace(int width, char **p)
 {
 	int	i;
 
-	*p = malloc(width + 1);
+	*p = ft_alloc(width + 1);
 	i = 0;
 	while (i < width)
 		p[0][i++] = ' ';
@@ -82,6 +82,5 @@ void	the_right_line(int width, char **s)
 			p[j++] = (*s)[i];
 		i++;
 	}
-	free(*s);
 	*s = p;
 }

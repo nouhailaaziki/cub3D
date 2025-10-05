@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/04 20:33:49 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:26:26 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,14 @@ int	check_colors(char *line, t_colors *color)
 	while (parts[i])
 		i++;
 	if (i != 3 || parts[3] != NULL)
-	{
-		free_array(parts);
 		return (error_exit("Wrong number of color values"), 1);
-	}
 	if (!ft_is_valid_color_value(parts[0]) || !ft_is_valid_color_value(parts[1])
 		|| !ft_is_valid_color_value(parts[2]))
-		return (free_array(parts), error_exit("Invalid color value"), 1);
+		return (error_exit("Invalid color value"), 1);
 	color->r = ft_atoi(parts[0]);
 	color->g = ft_atoi(parts[1]);
 	color->b = ft_atoi(parts[2]);
-	return (free_array(parts), 0);
+	return (0);
 }
 
 int	check_zero(char c)

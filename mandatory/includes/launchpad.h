@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/04 12:31:37 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:21:04 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>///
+# include <limits.h>
 
 # define TEX_NORTH 0
 # define TEX_SOUTH 1  
@@ -159,7 +159,7 @@ int		ft_strncmp(char *s1, char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 int		ft_isdigit(int c);
-void	free_array(char **arr);
+void	cleanup_textures(t_engine *engine);
 char 	**ft_my_split(char *s, char c);
 
 /*---------------------------- Color Checks ----------------------------*/
@@ -172,9 +172,7 @@ int		check_zero(char c);
 int		check_boundiries(char **map);
 int		iszeroplayerdoor(char c);
 
-/*----------------------------- Free & Exit ----------------------------*/
-void	free_array(char **array);
-void	free_cub3d(t_data *data);
+/*----------------------------- Exit ----------------------------*/
 void	error_exit(char *message);
 
 /*------------------------ Raycasting Functions ------------------------*/
@@ -186,7 +184,6 @@ void	set_initial_sides(t_engine *engine);
 void	perform_dda(t_engine *engine);
 void	calculate_wall_projection(t_engine *engine);
 void	init_data(t_engine *engine);
-// void	draw_vertical_line(t_engine *engine, int x, uint32_t color);
 void	raycast_frame(void *param);
 void	rotate_via_keys(void *param);
 void	wanderer_controls(void *param);
@@ -200,4 +197,9 @@ void			calculate_texture_data(t_engine *e);
 void			draw_textured_line(t_engine *e, int x, int t);
 void			draw_textured_pixel(t_engine *engine, int x, int y,
 					mlx_texture_t *tex);
+/****************************garbage_collector**************************/
+void	free_all(void *p, int flag);
+void	ft_done(size_t i);
+void	*ft_alloc(size_t i);
+
 #endif

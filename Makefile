@@ -1,7 +1,7 @@
 COMPILER = cc
 
-CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
-DBGFLAGS= -fsanitize=address -g3   
+CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast #-fsanitize=address -g3 -g
+#DBGFLAGS= -fsanitize=address -g3   
 
 FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
 
@@ -18,7 +18,7 @@ BONUS_NAME = cub3D_bonus
 HEADER  = mandatory/includes/launchpad.h
 HEADER_BONUS = bonus/includes_bonus/launchpad_bonus.h
 
-MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
+MANDATORY = mandatory/utilities/error_exit.c   mandatory/free.c \
 			mandatory/utilities/ft_atoi.c mandatory/utilities/ft_putendl_fd.c \
 			mandatory/utilities/ft_putstr_fd.c mandatory/utilities/ft_split.c  mandatory/utilities/ft_my_split.c \
 			mandatory/utilities/ft_strchr.c mandatory/utilities/ft_strcmp.c \
@@ -32,7 +32,7 @@ MANDATORY = mandatory/utilities/error_exit.c mandatory/utilities/free_utils.c \
 			mandatory/raycasting/raycasting.c mandatory/raycasting/render.c \
 			mandatory/raycasting/wanderer_controls.c mandatory/raycasting/rotation_controller.c
 
-BONUS =	bonus/utilities_bonus/error_exit_bonus.c bonus/utilities_bonus/free_utils_bonus.c \
+BONUS =	bonus/utilities_bonus/error_exit_bonus.c  bonus/free_bonus.c \
 		bonus/utilities_bonus/ft_atoi_bonus.c bonus/utilities_bonus/ft_putendl_fd_bonus.c \
 		bonus/utilities_bonus/ft_putstr_fd_bonus.c bonus/utilities_bonus/ft_split_bonus.c  bonus/utilities_bonus/ft_my_split_bonus.c\
 		bonus/utilities_bonus/ft_strchr_bonus.c bonus/utilities_bonus/ft_strcmp_bonus.c \

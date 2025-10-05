@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:48:16 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 09:01:22 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/05 18:30:23 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (len > lens - start)
 		len = lens - start;
-	p = (char *)malloc(len + 1);
+	p = (char *)ft_alloc(len + 1);
 	if (p == NULL)
 		return (NULL);
 	while (start < a && s[start])

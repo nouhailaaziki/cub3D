@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 14:42:25 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/01 19:29:29 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/05 20:13:42 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**ft_my_split(char *s, char c)
 
 	i = 0;
 	index = 0;
-	result = malloc(sizeof(char *) * (count_words(s, c) + 1));
+	result = ft_alloc(sizeof(char *) * (count_words(s, c) + 1));
 	while (s && s[i])
 	{
 		while (s[i] && (s[i] == c || s[i] == '\r'))
@@ -73,7 +73,7 @@ char	**ft_my_split(char *s, char c)
 		if (s[i] && s[i] != c && s[i] != '\r')
 		{
 			word_len = count_chars(&s[i], c);
-			result[index] = malloc(word_len + 1);
+			result[index] = ft_alloc(word_len + 1);
 			fill_word(result[index++], &s[i], word_len);
 			i += word_len;
 		}
