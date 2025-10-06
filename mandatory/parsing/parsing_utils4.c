@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:07:02 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/05 20:07:59 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:14:16 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	handle_line(char *line, int *cp, t_data *data)
 	else if (is_empty_line(line))
 		;
 	else if (is_map_start(line))
-		return (error_exit("Map found before all required elements"), 0);
+		return (error_exit("Something is wrong"), 0);
 	else
 		return (error_exit("Invalid line before elements"), 0);
 	return (1);
@@ -86,7 +86,7 @@ int	new_parsing(char *file, t_data *data)
 		return (0);
 	if (check_colors(data->f, &data->floor)
 		|| check_colors(data->c, &data->ceiling))
-		return (error_exit("Wrong colors"), 0);
+		return (error_exit("Invalid color value"), 0);
 	data->map = ft_my_split(map_line, '\n');
 	getmap_dimentions(data->map, &height, &width);
 	map_rectangular(&data->map, width);

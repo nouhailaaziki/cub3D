@@ -1,7 +1,7 @@
-NO ./tex/tex1.png
-SO ./tex/tex2.png
-WE ./tex/tex3.png
-EA ./tex/tex4.png
+NO ./tex/castle_1.png
+SO ./tex/castle_2.png
+WE ./tex/castle_3.png
+EA ./tex/castle_4.png
 
 F 20,22,25
 C 13,14,15

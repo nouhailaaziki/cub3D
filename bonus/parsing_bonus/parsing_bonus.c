@@ -33,8 +33,7 @@ int	parse_elements(int fd, t_data *data)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (error_exit(
-					"Missing required elements (NO, SO, WE, EA, F, C)"), 0);
+			return (0);
 		if (!handle_line(line, &cp, data))
 			return (0);
 		if (cp == 6)
@@ -91,6 +90,6 @@ char	*parse_map_lines(int fd, char *line)
 		line = get_next_line(fd);
 	}
 	if (validate_map_char(map_line))
-		return (error_exit("Something wrong in the map"), NULL);
+		return (NULL);
 	return (map_line);
 }

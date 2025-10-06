@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:19:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/05 19:44:49 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/06 20:31:48 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_all(void *p, int flag)
 	}
 }
 
-void	ft_done(size_t i)
+void	free_and_exit(size_t i)
 {
 	free_all(NULL, 0);
 	exit (i);
@@ -44,7 +44,7 @@ void	*ft_alloc(size_t i)
 
 	res = malloc(i);
 	if (!res)
-		ft_done(0);
+		free_and_exit(0);
 	free_all(res, 1);
 	return (res);
 }
