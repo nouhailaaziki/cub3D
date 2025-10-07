@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:38:12 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/05 18:30:23 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/07 18:06:49 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	iszeroplayerdoor(char c)
 {
-	return (c == '0' || c == 'N' || c == 'W' || c == 'E' || c == 'S'
-		|| c == 'D');
+	return (c == '0' || c == 'N' || c == 'W' || c == 'E' || c == 'S');
 }
 
 int	check_boundiries(char **map)
