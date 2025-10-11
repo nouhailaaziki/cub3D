@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:53:22 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/05 20:30:02 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:06:09 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	master(t_engine *engine)
 	mlx_loop_hook(engine->mlx, raycast_frame, engine);
 	mlx_loop_hook(engine->mlx, rotate_via_keys, engine);
 	mlx_loop_hook(engine->mlx, rotate_via_mouse, engine);
+	mlx_loop_hook(engine->mlx, handle_doors, engine);
 	mlx_set_cursor_mode(engine->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(engine->mlx, wanderer_controls, engine);
 	mlx_close_hook(engine->mlx, farewell_wanderer, engine);

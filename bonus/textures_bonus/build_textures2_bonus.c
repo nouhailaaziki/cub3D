@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:27:45 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/05 20:28:09 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:13:05 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 mlx_texture_t	*get_texture(t_engine *e, int t)
 {
-	if (t == 0)
+	if (t == TEX_DOOR)
+		return (e->door);
+	if (t == TEX_NORTH)
 		return (e->no);
-	if (t == 1)
+	if (t == TEX_SOUTH)
 		return (e->so);
-	if (t == 2)
+	if (t == TEX_EAST)
 		return (e->ea);
 	return (e->we);
 }
@@ -48,4 +50,10 @@ void	draw_textured_line(t_engine *e, int x, int t)
 		e->tex_pos += 1.0 * e->current_tex->height / e->lineheight;
 		y++;
 	}
+}
+
+float	the_distance(t_engine *engine, float x, float y)
+{
+	return (sqrt(((x - engine->player.posx) * (x - engine->player.posx))
+			+ ((y - engine->player.posy) * (y - engine->player.posy))));
 }

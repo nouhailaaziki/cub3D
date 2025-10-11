@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 09:01:22 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/09 18:06:55 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,45 @@ void	set_initial_sides(t_engine *engine)
 	}
 }
 
-void	perform_dda(t_engine *engine)
+void	update_ray_step(t_engine *e)
 {
-	int	hit;
+	if (e->sidedistx < e->sidedisty)
+	{
+		e->sidedistx += e->deltadistx;
+		e->mapx += e->stepx;
+		e->side = 0;
+	}
+	else
+	{
+		e->sidedisty += e->deltadisty;
+		e->mapy += e->stepy;
+		e->side = 1;
+	}
+}
+
+void	perform_dda(t_engine *e)
+{
+	int		hit;
+	char	c;
 
 	hit = 0;
-	while (hit == 0)
+	e->hit_door = 0;
+	while (!hit)
 	{
-		if (engine->sidedistx < engine->sidedisty)
+		update_ray_step(e);
+		c = e->data.map[e->mapy][e->mapx];
+		if (c == '1')
 		{
-			engine->sidedistx += engine->deltadistx;
-			engine->mapx += engine->stepx;
-			engine->side = 0;
-		}
-		else
-		{
-			engine->sidedisty += engine->deltadisty;
-			engine->mapy += engine->stepy;
-			engine->side = 1;
-		}
-		if (engine->data.map[engine->mapy][engine->mapx] == '1')
 			hit = 1;
+			e->hit_door = 0;
+		}
+		else if (c == 'D' && !check_door(the_distance(e,
+					e->mapx + 0.5, e->mapy + 0.5),
+				atan2(e->raydiry, e->raydirx) * 180 / M_PI))
+		{
+			hit = 1;
+			e->hit_door = 1;
+		}
 	}
 }
 

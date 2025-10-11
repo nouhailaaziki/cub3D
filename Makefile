@@ -1,7 +1,7 @@
 COMPILER = cc
 
-CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast #-fsanitize=address -g3 -g
-#DBGFLAGS= -fsanitize=address -g3   
+CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
+DBGFLAGS= -fsanitize=address -g3   
 
 FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
 
@@ -39,7 +39,7 @@ BONUS =	bonus/utilities_bonus/error_exit_bonus.c  bonus/free_bonus.c \
 		bonus/utilities_bonus/ft_strdup_bonus.c bonus/utilities_bonus/ft_strjoin_bonus.c \
 		bonus/utilities_bonus/ft_strlen_bonus.c bonus/utilities_bonus/ft_strncmp_bonus.c \
 		bonus/utilities_bonus/ft_substr_bonus.c bonus/utilities_bonus/get_next_line_bonus.c  bonus/utilities_bonus/ft_isdigit_bonus.c\
-		bonus/utilities_bonus/ft_putchar_fd_bonus.c \
+		bonus/utilities_bonus/ft_putchar_fd_bonus.c  bonus/textures_bonus/door_bonus.c \
 		bonus/parsing_bonus/parsing_bonus.c bonus/parsing_bonus/parsing_utils1_bonus.c bonus/parsing_bonus/parsing_utils2_bonus.c\
 		bonus/parsing_bonus/parsing_utils3_bonus.c bonus/parsing_bonus/parsing_utils4_bonus.c bonus/parsing_bonus/main_bonus.c \
 		bonus/raycasting_bonus/master_bonus.c bonus/raycasting_bonus/init_data_bonus.c \

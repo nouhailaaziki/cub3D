@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation_controller_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:10:53 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 12:42:56 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/09 16:17:15 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,15 @@ void	rotate_via_mouse(void *param)
 		else if (deltax < 0)
 			rotate_player(engine, -0.01);
 	}
+}
+
+int	get_tile_color(char c)
+{
+	if (c == '1')
+		return (0xD42525FF);
+	else if (c == 'D')
+		return (0xFFA500FF);
+	else if (c == 'O')
+		return (0x00FF00FF);
+	return (0x696969FF);
 }

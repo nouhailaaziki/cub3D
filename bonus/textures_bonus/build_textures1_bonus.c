@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:26:59 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/05 20:27:54 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/11 14:48:50 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	load_textures(t_engine *engine)
 	engine->so = mlx_load_png(engine->data.so);
 	engine->ea = mlx_load_png(engine->data.ea);
 	engine->we = mlx_load_png(engine->data.we);
+	engine->door = mlx_load_png("./tex/DOOR_3B.png");
 	if (engine->no == NULL || engine->so == NULL
-		|| engine->ea == NULL || engine->we == NULL)
+		|| engine->ea == NULL || engine->we == NULL || engine->door == NULL)
 	{
 		if (engine->no)
 			mlx_delete_texture(engine->no);
@@ -29,6 +30,8 @@ int	load_textures(t_engine *engine)
 			mlx_delete_texture(engine->ea);
 		if (engine->we)
 			mlx_delete_texture(engine->we);
+		if (engine->door)
+			mlx_delete_texture(engine->door);
 		return (error_exit("Failed to load texture"), 1);
 	}
 	return (0);
@@ -36,6 +39,11 @@ int	load_textures(t_engine *engine)
 
 int	get_texture_index(t_engine *engine)
 {
+	char	current_cell;
+
+	current_cell = engine->data.map[engine->mapy][engine->mapx];
+	if (current_cell == 'D')
+		return (TEX_DOOR);
 	if (engine->side == 0)
 	{
 		if (engine->raydirx > 0)
@@ -83,4 +91,6 @@ void	cleanup_textures(t_engine *engine)
 		mlx_delete_texture(engine->ea);
 	if (engine->we)
 		mlx_delete_texture(engine->we);
+	if (engine->door)
+		mlx_delete_texture(engine->door);
 }
