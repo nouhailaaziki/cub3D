@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/09 18:06:55 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:14:48 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void	perform_dda(t_engine *e)
 			hit = 1;
 			e->hit_door = 0;
 		}
-		else if (c == 'D' && !check_door(the_distance(e,
-					e->mapx + 0.5, e->mapy + 0.5),
-				atan2(e->raydiry, e->raydirx) * 180 / M_PI))
+		else if (c == 'D')
 		{
 			hit = 1;
 			e->hit_door = 1;

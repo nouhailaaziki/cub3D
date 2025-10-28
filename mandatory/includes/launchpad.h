@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/11 17:48:59 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:53:17 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ void	calculate_texture_data(t_engine *e);
 void	draw_textured_line(t_engine *e, int x, int t);
 void	draw_textured_pixel(t_engine *engine,
 			int x, int y, mlx_texture_t *tex);
-mlx_texture_t	*get_texture(t_engine *e, int t);
 
 /****************************garbage_collector**************************/
 void	free_all(void *p, int flag);

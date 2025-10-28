@@ -1,7 +1,7 @@
 COMPILER = cc
 
-CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
-DBGFLAGS= -fsanitize=address -g3   
+CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast #-fsanitize=address -g3 -g
+#DBGFLAGS= -fsanitize=address -g3   
 
 FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
 
@@ -32,7 +32,7 @@ MANDATORY = mandatory/utilities/error_exit.c   mandatory/free.c \
 			mandatory/raycasting/raycasting.c mandatory/raycasting/render.c \
 			mandatory/raycasting/wanderer_controls.c mandatory/raycasting/rotation_controller.c
 
-BONUS =	bonus/utilities_bonus/error_exit_bonus.c  bonus/free_bonus.c \
+BONUS =	bonus/utilities_bonus/error_exit_bonus.c  bonus/free_bonus.c  bonus/textures_bonus/enemy1_bonus.c  bonus/textures_bonus/enemy2_bonus.c \
 		bonus/utilities_bonus/ft_atoi_bonus.c bonus/utilities_bonus/ft_putendl_fd_bonus.c \
 		bonus/utilities_bonus/ft_putstr_fd_bonus.c bonus/utilities_bonus/ft_split_bonus.c  bonus/utilities_bonus/ft_my_split_bonus.c\
 		bonus/utilities_bonus/ft_strchr_bonus.c bonus/utilities_bonus/ft_strcmp_bonus.c \

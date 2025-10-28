@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/11 12:19:11 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:20:44 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xFF000000);
+			mlx_put_pixel(engine->image, x++, y, 0x808080FF);
 		y++;
 	}
 	y = SCREEN_HEIGHT / 2;
@@ -45,6 +45,7 @@ void	raycast_frame(void *param)
 
 	engine = (t_engine *)param;
 	x = 0;
+	check_game_over(engine);
 	while (x < SCREEN_WIDTH)
 	{
 		setup_ray(engine, x);
@@ -53,11 +54,10 @@ void	raycast_frame(void *param)
 		perform_dda(engine);
 		calculate_wall_projection(engine);
 		tex_index = get_texture_index(engine);
-		if (engine->side == 1)
-			draw_textured_line(engine, x, tex_index);
-		else
-			draw_textured_line(engine, x, tex_index);
+		draw_textured_line(engine, x, tex_index);
+		engine->buffer[x] = engine->perpwalldist;
 		x++;
 	}
+	render_all_enemies(engine);
 	render_minimap(engine);
 }

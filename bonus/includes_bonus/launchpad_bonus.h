@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/11 17:53:46 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:54:40 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdio.h>
 
 # define TEX_NORTH 0
 # define TEX_SOUTH 1
 # define TEX_EAST 2
 # define TEX_WEST 3
 # define TEX_DOOR 4
+# define TEX_ENEMY 5
 
 /*---------------------- Default Configuration ------------------------*/
 
@@ -55,6 +57,45 @@
 
 /*----------------------------- Structures ----------------------------*/
 
+typedef struct s_pos_data
+{
+	int		map_x;
+	int		map_y;
+	double	t_x;
+	double	t_y;
+}	t_pos_data;
+
+typedef struct s_draw_data
+{
+	int	tex_x;
+	int	tex_y;
+	int	x;
+	int	y;
+}	t_draw_data;
+
+/* Enemy animation data */
+typedef struct s_enemy
+{
+	double		posx;
+	double		posy;
+	int			frame;
+	double		frame_time;
+	int			is_alive;
+	double		distance_to_player;
+}	t_enemy;
+
+/* Sprite drawing data */
+typedef struct s_sprite_data
+{
+	int	draw_start_x;
+	int	draw_end_x;
+	int	draw_start_y;
+	int	draw_end_y;
+	int	width;
+	int	height;
+	int	sprite_screen_x;
+	int	v_move_screen;// Add this for vertical positioning
+}	t_sprite_data;
 /* RGB color representation */
 typedef struct s_colors
 {
@@ -134,6 +175,9 @@ typedef struct s_engine
 	mlx_texture_t	*door;
 	int				hit_door;
 	int				space_pressed;
+	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
+	double			animation_time;// Global animation timer
+	double			*buffer;
 }	t_engine;
 
 /*----------------------------- Parsing --------------------------------*/
@@ -206,7 +250,6 @@ void	render_minimap(t_engine *engine);
 int		get_tile_color(char c);
 
 /*---------------------------- Textures --------------------------------*/
-mlx_texture_t	*get_texture(t_engine *e, int t);
 void	calculate_texture_data(t_engine *e);
 void	draw_textured_pixel(t_engine *engine, int x, int y,
 			mlx_texture_t *tex);
@@ -220,11 +263,17 @@ void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
 
 /*------------------------------ Doors ---------------------------------*/
-float	the_distance(t_engine *engine, float x, float y);
-int		check_door(float distance, float angle);
 int		is_player_near_door(t_engine *engine, int door_x, int door_y);
 void	toggle_door(t_engine *engine, int x, int y);
 void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
 
+/*---------------------------- Enemy Functions ----------------------------*/
+void	render_all_enemies(t_engine *engine);
+void	cleanup_enemy_textures(t_engine *engine);
+void	update_enemies_hook(void *param);
+void	calculate_enemy_screen_position(t_engine *engine, t_pos_data *pos);
+void	calculate_enemy_sprite_data(double t_x, double t_y, t_sprite_data *sp);
+void	check_game_over(t_engine *engine);
+int		load_enemy_textures(t_engine *engine);
 #endif

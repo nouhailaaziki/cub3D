@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:26:59 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/11 14:48:50 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/20 19:37:55 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	load_textures(t_engine *engine)
 	engine->so = mlx_load_png(engine->data.so);
 	engine->ea = mlx_load_png(engine->data.ea);
 	engine->we = mlx_load_png(engine->data.we);
-	engine->door = mlx_load_png("./tex/DOOR_3B.png");
+	engine->door = mlx_load_png("./tex/door.png");
 	if (engine->no == NULL || engine->so == NULL
 		|| engine->ea == NULL || engine->we == NULL || engine->door == NULL)
 	{

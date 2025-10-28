@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:10:53 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/09 16:17:15 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:36:11 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ int	get_tile_color(char c)
 		return (0xFFA500FF);
 	else if (c == 'O')
 		return (0x00FF00FF);
+	else if (c == 'M')
+		return (0xFF00FFFF);
 	return (0x696969FF);
 }

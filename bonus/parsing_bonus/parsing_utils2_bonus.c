@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/06 14:16:06 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:56:47 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	validate_map_char(char *line)
 			&& line[i] != '0' && line[i] != '1'
 			&& line[i] != 'S' && line[i] != 'N'
 			&& line[i] != 'W' && line[i] != 'E'
-			&& line[i] != 'D' && line[i] != '\r')
+			&& line[i] != 'D' && line[i] != 'M'
+			&& line[i] != '\r')
 			return (error_exit("Wrong char in the map"), 1);
 		if (line[i] == 'S' || line[i] == 'N'
 			|| line[i] == 'W' || line[i] == 'E')
