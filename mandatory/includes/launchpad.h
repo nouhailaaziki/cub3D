@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 16:53:17 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:13:28 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ char	*parse_map_lines(int fd, char *line);
 int		new_parsing(char *file, t_data *data);
 void	getmap_dimentions(char **map, int *h, int *w);
 void	extract_elements(char *line, int *cp, t_data *data);
-int		null_elements(char *el);
 int		is_map_start(const char *line);
 int		handle_line(char *line, int *cp, t_data *data);
 int		validate_map_char(char *line);

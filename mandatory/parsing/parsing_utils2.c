@@ -6,18 +6,11 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/09 17:01:04 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:15:00 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/launchpad.h"
-
-int	null_elements(char *el)
-{
-	if (!el || !*el)
-		return (1);
-	return (0);
-}
 
 int	validate_map_char(char *line)
 {

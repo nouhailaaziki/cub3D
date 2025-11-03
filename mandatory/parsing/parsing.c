@@ -39,9 +39,9 @@ int	parse_elements(int fd, t_data *data)
 		if (cp == 6)
 			break ;
 	}
-	if (null_elements(data->so) || null_elements(data->we)
-		|| null_elements(data->no) || null_elements(data->ea)
-		|| null_elements(data->f) || null_elements(data->c))
+	if (!data->so || !*data->so || !data->we || !*data->we
+		|| !data->no || !*data->no || !data->ea || !*data->ea
+		|| !data->f || !*data->f || !data->c || !*data->c)
 		return (error_exit("Something wrong in textures/colors"), 0);
 	return (1);
 }
