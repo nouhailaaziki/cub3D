@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 13:08:50 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/23 16:20:44 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xFF00FFFF);
+			mlx_put_pixel(engine->image, x++, y, 0x808080FF);
 		y++;
 	}
 	y = SCREEN_HEIGHT / 2;
@@ -32,25 +32,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xFF000071);
-		y++;
-	}
-}
-
-void	draw_vertical_line(t_engine *engine, int x, uint32_t color)
-{
-	int	y;
-
-	if (x < 0 || x >= (int)engine->image->width)
-		return ;
-	if (engine->drawstart < 0)
-		engine->drawstart = 0;
-	if (engine->drawend >= (int)engine->image->height)
-		engine->drawend = engine->image->height - 1;
-	y = engine->drawstart;
-	while (y <= engine->drawend)
-	{
-		mlx_put_pixel(engine->image, x, y, color);
+			mlx_put_pixel(engine->image, x++, y, 0xFF000000);
 		y++;
 	}
 }
@@ -59,9 +41,11 @@ void	raycast_frame(void *param)
 {
 	t_engine	*engine;
 	int			x;
+	int			tex_index;
 
 	engine = (t_engine *)param;
 	x = 0;
+	check_game_over(engine);
 	while (x < SCREEN_WIDTH)
 	{
 		setup_ray(engine, x);
@@ -69,11 +53,11 @@ void	raycast_frame(void *param)
 		set_initial_sides(engine);
 		perform_dda(engine);
 		calculate_wall_projection(engine);
-		if (engine->side == 1)
-			draw_vertical_line(engine, x, 0xFF0000);
-		else
-			draw_vertical_line(engine, x, 0xFF0000);
+		tex_index = get_texture_index(engine);
+		draw_textured_line(engine, x, tex_index);
+		engine->buffer[x] = engine->perpwalldist;
 		x++;
 	}
+	render_all_enemies(engine);
 	render_minimap(engine);
 }

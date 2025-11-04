@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 15:17:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/09/06 16:19:38 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/04 20:16:23 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/launchpad.h"
+#include "../includes/launchpad.h"
 
 int	validate_args(int argc, char **argv)
 {
@@ -53,32 +53,37 @@ int	file_exists(const char *filename)
 	return (0);
 }
 
-char *get_data(char *line, char c)
+char	*get_data(char *line, char c)
 {
-    int i = 0;
+	int	i;
+	int	j;
 
-    if (c == 'F' || c == 'C')
-        i++;
-    if (c == 'S' || c == 'N' || c == 'W' || c == 'E')
-        i *= 2;
-    while (line[i] == ' ')
-        i++;
-    return ft_strdup(&line[i]);
+	i = 0;
+	if (c == 'F' || c == 'C')
+		i++;
+	if (c == 'S' || c == 'N' || c == 'W' || c == 'E')
+		i += 2;
+	while (line[i] == ' ')
+		i++;
+	j = ft_strlen(line) - 1;
+	while (j >= i && (line[j] == '\n' || line[j] == '\r'))
+		line[j--] = '\0';
+	return (ft_strdup(&line[i]));
 }
 
-void extract_elements(char *line, int *cp, t_data *data)
+void	extract_elements(char *line, int *cp, t_data *data)
 {
-    if (!ft_strncmp(line, "F", 1))
-        data->f = get_data(line, 'F');
-    if (!ft_strncmp(line, "C", 1))
-        data->c = get_data(line, 'C');
-    if (!ft_strncmp(line, "SO", 2))
-        data->so = get_data(line, 'S');
-    if (!ft_strncmp(line, "NO", 2))
-        data->no = get_data(line, 'N');
-    if (!ft_strncmp(line, "WE", 2))
-        data->we = get_data(line, 'W');
-    if (!ft_strncmp(line, "EA", 2))
-        data->ea = get_data(line, 'E');
-    (*cp)++;
+	if (!ft_strncmp(line, "F", 1))
+		data->f = get_data(line, 'F');
+	if (!ft_strncmp(line, "C", 1))
+		data->c = get_data(line, 'C');
+	if (!ft_strncmp(line, "SO", 2))
+		data->so = get_data(line, 'S');
+	if (!ft_strncmp(line, "NO", 2))
+		data->no = get_data(line, 'N');
+	if (!ft_strncmp(line, "WE", 2))
+		data->we = get_data(line, 'W');
+	if (!ft_strncmp(line, "EA", 2))
+		data->ea = get_data(line, 'E');
+	(*cp)++;
 }

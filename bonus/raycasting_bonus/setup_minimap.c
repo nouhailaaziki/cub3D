@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup_minimap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 12:53:17 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 13:06:43 by noaziki          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes_bonus/launchpad_bonus.h"/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setup_minimap.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/14 12:53:17 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 13:30:01 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/20 16:11:20 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,32 +76,24 @@ void	trace_minimap_border(t_engine *engine, int radius)
 	}
 }
 
-void	draw_map_tiles(t_engine *engine, int radius, int x, int y)
+void	draw_map_tiles(t_engine *e, int r, int x, int y)
 {
-	float	res_x;
-	float	res_y;
-	float	dist;
-	int		center_x;
-	int		center_y;
+	float	rx;
+	float	ry;
+	float	d;
+	int		cx;
+	int		cy;
 
-	center_x = radius;
-	center_y = radius;
-	res_x = (x + 0.5) - engine->player.posx;
-	res_y = (y + 0.5) - engine->player.posy;
-	dist = sqrt(res_x * res_x + res_y * res_y);
-	if (dist * 8 < radius)
-	{
-		if (engine->data.map[y][x] == '1')
-			minimap_pixel_block(engine->image,
-				center_x + (int)(res_x * 7.5),
-				center_y + (int)(res_y * 7.5),
-				0xD42525FF);
-		else
-			minimap_pixel_block(engine->image,
-				center_x + (int)(res_x * 7.5),
-				center_y + (int)(res_y * 7.5),
-				0x696969FF);
-	}
+	cx = r;
+	cy = r;
+	rx = (x + 0.5) - e->player.posx;
+	ry = (y + 0.5) - e->player.posy;
+	d = sqrt(rx * rx + ry * ry);
+	if (d * 8 < r)
+		minimap_pixel_block(e->image,
+			cx + (int)(rx * 7.5),
+			cy + (int)(ry * 7.5),
+			get_tile_color(e->data.map[y][x]));
 }
 
 void	render_minimap(t_engine *engine)

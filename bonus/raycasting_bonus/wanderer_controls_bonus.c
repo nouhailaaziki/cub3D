@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wanderer_controls_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:12:43 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/14 09:01:22 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/10/23 16:20:55 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,26 @@
 int	check_collision(t_engine *engine, double x, double y)
 {
 	double	r;
+	int		map_x;
+	int		map_y;
 
 	r = 0.15;
-	if (engine->data.map[(int)(y)][(int)(x + r)] == '1')
+	map_x = (int)x;
+	map_y = (int)y;
+	if (engine->data.map[map_y][map_x] == '1'
+		|| engine->data.map[map_y][map_x] == 'D')
 		return (0);
-	if (engine->data.map[(int)(y)][(int)(x - r)] == '1')
+	if (engine->data.map[(int)(y)][(int)(x + r)] == '1'
+		|| engine->data.map[(int)(y)][(int)(x + r)] == 'D')
 		return (0);
-	if (engine->data.map[(int)(y + r)][(int)(x)] == '1')
+	if (engine->data.map[(int)(y)][(int)(x - r)] == '1'
+		|| engine->data.map[(int)(y)][(int)(x - r)] == 'D')
 		return (0);
-	if (engine->data.map[(int)(y - r)][(int)(x)] == '1')
+	if (engine->data.map[(int)(y + r)][(int)(x)] == '1'
+		|| engine->data.map[(int)(y + r)][(int)(x)] == 'D')
+		return (0);
+	if (engine->data.map[(int)(y - r)][(int)(x)] == '1'
+		|| engine->data.map[(int)(y - r)][(int)(x)] == 'D')
 		return (0);
 	return (1);
 }

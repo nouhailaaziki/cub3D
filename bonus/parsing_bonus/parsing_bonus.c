@@ -1,116 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/15 16:17:15 by hajel-ho          #+#    #+#             */
+/*   Updated: 2025/09/15 16:17:15 by hajel-ho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes_bonus/launchpad_bonus.h"
 
-void getmap_dimentions(char **map, int *h, int *w)
+int	init_data_elements(t_data *data)
 {
-    *h = 0;
-    *w = 0;
-    int new_width;
-    while (map[*h])
-    {
-        new_width = ft_strlen(map[*h]);
-        if (new_width > *w)
-            *w = new_width;
-        (*h)++;
-    }
+	data->so = NULL;
+	data->we = NULL;
+	data->no = NULL;
+	data->ea = NULL;
+	data->f = NULL;
+	data->c = NULL;
+	return (0);
 }
 
-void ft_bspace(int width, char **p)
+int	parse_elements(int fd, t_data *data)
 {
-    int i;
+	char	*line;
+	int		cp;
 
-    *p = malloc(width + 1);
-    i = 0;
-    while (i < width)
-        p[0][i++] = ' ';
-    p[0][i] = '\0';
+	cp = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			return (0);
+		if (!handle_line(line, &cp, data))
+			return (0);
+		if (cp == 6)
+			break ;
+	}
+	if (!data->so || !*data->so || !data->we || !*data->we
+		|| !data->no || !*data->no || !data->ea || !*data->ea
+		|| !data->f || !*data->f || !data->c || !*data->c)
+		return (error_exit("Something wrong in textures/colors"), 0);
+	return (1);
 }
 
-void the_right_line(int width, char **s)
+int	is_empty_line(char *line)
 {
-    int i;
-    int j;
-    char *p;
+	int	i;
 
-    ft_bspace(width, &p);
-    i = 0;
-    j = 0;
-    while (i < width)
-    {
-        if (i < ft_strlen(*s))
-            p[j++] = (*s)[i];
-        i++;
-    }
-    free(*s);
-    *s = p;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '\n' && line[i] != '\r')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void fix_map(char ***map_2d, int width)
+char	*skip_empty_lines(int fd)
 {
-    int i;
-    char **new_map_2d = *map_2d;
-    i = -1;
-    while (new_map_2d[++i])
-        the_right_line(width, &new_map_2d[i]);
+	char	*line;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (!is_empty_line(line))
+			break ;
+	}
+	if (!line)
+		return (error_exit("No map"), NULL);
+	return (line);
 }
 
-int new_parsing(char *file, t_data *data)
+char	*parse_map_lines(int fd, char *line)
 {
-    int fd;
-    char *line;
-    char *map_line;
-    int height;
-    int width;
+	char	*map_line;
 
-    data->so = NULL;
-    data->we = NULL;
-    data->no = NULL;
-    data->ea = NULL;
-    data->f = NULL;
-    data->c = NULL;
-    map_line = NULL;
-    int cp = 0;
-    fd = openning_file(file);
-    while (1)
-    {
-        line = get_next_line(fd);
-        if (!line)
-            return (error_exit("Missing required elements (NO, SO, WE, EA, F, C)"), 0);
-        if (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1) || !ft_strncmp(line, "SO", 2) || !ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2))
-            extract_elements(line, &cp, data);
-        free(line);
-        if (cp == 6)
-            break;
-    }
-    if (null_elements(data->so) || null_elements(data->we) || null_elements(data->no) || null_elements(data->ea) || null_elements(data->f) || null_elements(data->c))
-        return (error_exit("Duplicate in textures/colors"), 0);
-    while (1)
-    {
-        line = get_next_line(fd);
-        if (!line)
-            break;
-        if (ft_strcmp(line, "\n"))
-            break;
-    }
-    if (!line)
-        return (error_exit("No map"), 0);
-    while (1)
-    {
-        if (!line)
-            break;
-        if (!ft_strcmp(line, "\n"))
-            return (error_exit("New lines in map"), 0);
-        map_line = ft_strjoin(map_line, line);
-        line = get_next_line(fd);
-    }
-    if (check_wrong_el(map_line))
-        return (error_exit("Something wrong in the map"), 0);
-    if (check_colors(data->f, &data->floor) || check_colors(data->c, &data->ceiling))
-        return (error_exit("Wrong colors"), 0);
-    data->map = ft_split(map_line, '\n');
-
-    if (check_boundiries(data->map))
-        return (error_exit("Map is not properly closed by walls"), 0);
-    getmap_dimentions(data->map, &height, &width);
-    fix_map(&data->map, width);
-    return 1;
+	map_line = NULL;
+	while (line)
+	{
+		if (is_empty_line(line))
+			return (error_exit("New lines in map"), NULL);
+		map_line = ft_strjoin(map_line, line);
+		line = get_next_line(fd);
+	}
+	if (validate_map_char(map_line))
+		return (NULL);
+	return (map_line);
 }
