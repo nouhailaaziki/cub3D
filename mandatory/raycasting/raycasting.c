@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/04 13:30:06 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/09/29 14:35:40 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	set_ray_deltas(t_engine *engine)
 	engine->mapx = (int)engine->player.posx;
 	engine->mapy = (int)engine->player.posy;
 	if (engine->raydirx == 0)
-		engine->deltadistx = 1e30;// no need 
+		engine->deltadistx = 1e30;
 	else
 		engine->deltadistx = fabs(1 / engine->raydirx);
 	if (engine->raydiry == 0)
-		engine->deltadisty = 1e30;// no need 
+		engine->deltadisty = 1e30;
 	else
 		engine->deltadisty = fabs(1 / engine->raydiry);
 }
