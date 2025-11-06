@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/03 17:13:22 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/04 18:12:49 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,6 @@ typedef struct s_engine
 	t_data			data;// Map and texture data
 	t_player		player;// Player info
 	mlx_texture_t	*door;
-	int				hit_door;
-	int				space_pressed;
 	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
 	double			animation_time;// Global animation timer
 	double			*buffer;
@@ -262,9 +260,7 @@ void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
 
 /*------------------------------ Doors ---------------------------------*/
-int		is_player_near_door(t_engine *engine, int door_x, int door_y);
 void	toggle_door(t_engine *engine, int x, int y);
-void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
 
 /*---------------------------- Enemy Functions ----------------------------*/

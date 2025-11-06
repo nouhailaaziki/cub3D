@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:12:43 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 16:20:55 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:36:09 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,15 @@ int	check_collision(t_engine *engine, double x, double y)
 	r = 0.15;
 	map_x = (int)x;
 	map_y = (int)y;
-	if (engine->data.map[map_y][map_x] == '1'
-		|| engine->data.map[map_y][map_x] == 'D')
+	if (engine->data.map[map_y][map_x] == '1')
 		return (0);
-	if (engine->data.map[(int)(y)][(int)(x + r)] == '1'
-		|| engine->data.map[(int)(y)][(int)(x + r)] == 'D')
+	if (engine->data.map[(int)(y)][(int)(x + r)] == '1')
 		return (0);
-	if (engine->data.map[(int)(y)][(int)(x - r)] == '1'
-		|| engine->data.map[(int)(y)][(int)(x - r)] == 'D')
+	if (engine->data.map[(int)(y)][(int)(x - r)] == '1')
 		return (0);
-	if (engine->data.map[(int)(y + r)][(int)(x)] == '1'
-		|| engine->data.map[(int)(y + r)][(int)(x)] == 'D')
+	if (engine->data.map[(int)(y + r)][(int)(x)] == '1')
 		return (0);
-	if (engine->data.map[(int)(y - r)][(int)(x)] == '1'
-		|| engine->data.map[(int)(y - r)][(int)(x)] == 'D')
+	if (engine->data.map[(int)(y - r)][(int)(x)] == '1')
 		return (0);
 	return (1);
 }
