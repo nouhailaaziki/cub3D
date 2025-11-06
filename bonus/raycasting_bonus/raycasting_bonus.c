@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/04 14:49:24 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:09:16 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,43 +54,30 @@ void	set_initial_sides(t_engine *engine)
 	}
 }
 
-void	update_ray_step(t_engine *e)
-{
-	if (e->sidedistx < e->sidedisty)
-	{
-		e->sidedistx += e->deltadistx;
-		e->mapx += e->stepx;
-		e->side = 0;
-	}
-	else
-	{
-		e->sidedisty += e->deltadisty;
-		e->mapy += e->stepy;
-		e->side = 1;
-	}
-}
-
-void	perform_dda(t_engine *e)
+void	perform_dda(t_engine *engine)
 {
 	int		hit;
 	char	c;
 
 	hit = 0;
-	e->hit_door = 0;
-	while (!hit)
+	while (hit == 0)
 	{
-		update_ray_step(e);
-		c = e->data.map[e->mapy][e->mapx];
-		if (c == '1')
+		c = engine->data.map[engine->mapy][engine->mapx];
+		if (engine->sidedistx < engine->sidedisty)
 		{
-			hit = 1;
-			e->hit_door = 0;
+			engine->sidedistx += engine->deltadistx;
+			engine->mapx += engine->stepx;
+			engine->side = 0;
 		}
-		else if (c == 'D')
+		else
 		{
-			hit = 1;
-			e->hit_door = 1;
+			engine->sidedisty += engine->deltadisty;
+			engine->mapy += engine->stepy;
+			engine->side = 1;
 		}
+		if (engine->data.map[engine->mapy][engine->mapx] == '1' ||
+		engine->data.map[engine->mapy][engine->mapx] == 'D')
+			hit = 1;
 	}
 }
 

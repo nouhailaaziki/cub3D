@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 16:20:44 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:14:07 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0x808080FF);
+			mlx_put_pixel(engine->image, x++, y, 0xCFA463FF);
 		y++;
 	}
 	y = SCREEN_HEIGHT / 2;
@@ -32,7 +32,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xFF000000);
+			mlx_put_pixel(engine->image, x++, y, 0x7A5A2CFF);
 		y++;
 	}
 }

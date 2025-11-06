@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:12:43 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 16:20:55 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:43:56 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	wanderer_controls(void *param)
 
 	engine = (t_engine *)param;
 	handle_wasd_keys(engine);
+	auto_close_doors(engine);
 	if (mlx_is_key_down(engine->mlx, MLX_KEY_ESCAPE))
 	{
 		ft_putstr_fd("You chose to escape... \

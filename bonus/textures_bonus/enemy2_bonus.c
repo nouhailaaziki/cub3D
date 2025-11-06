@@ -6,13 +6,13 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 19:02:25 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/23 17:46:10 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:11:44 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_bonus/launchpad_bonus.h"
 
-void	draw_enemy_pixel(t_engine *e, t_draw_data d)
+void	draw_enemy_pixel(t_engine *e, t_draw_enemy d)
 {
 	uint8_t			*p;
 	uint32_t		color;
@@ -30,7 +30,7 @@ void	draw_enemy_column(t_engine *e, t_sprite_data *sp, int stripe_x)
 	int				y;
 	int				d;
 	int				tex_x;
-	t_draw_data		dat;
+	t_draw_enemy	dat;
 	mlx_texture_t	*tex;
 
 	tex = e->enemy_frames[(int)(e->animation_time * 5) % 6];
