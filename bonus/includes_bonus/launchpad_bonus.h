@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/04 18:12:49 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:31:41 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include <stdio.h>
 
 # define TEX_NORTH 0
 # define TEX_SOUTH 1
@@ -65,13 +64,13 @@ typedef struct s_pos_data
 	double	t_y;
 }	t_pos_data;
 
-typedef struct s_draw_data
+typedef struct s_draw_enemy
 {
 	int	tex_x;
 	int	tex_y;
 	int	x;
 	int	y;
-}	t_draw_data;
+}	t_draw_enemy;
 
 /* Enemy animation data */
 typedef struct s_enemy
@@ -173,6 +172,7 @@ typedef struct s_engine
 	t_data			data;// Map and texture data
 	t_player		player;// Player info
 	mlx_texture_t	*door;
+	int				space_pressed;
 	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
 	double			animation_time;// Global animation timer
 	double			*buffer;
@@ -261,7 +261,9 @@ void	*ft_alloc(size_t i);
 
 /*------------------------------ Doors ---------------------------------*/
 void	toggle_door(t_engine *engine, int x, int y);
+void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
+void	auto_close_doors(t_engine *engine);
 
 /*---------------------------- Enemy Functions ----------------------------*/
 void	render_all_enemies(t_engine *engine);

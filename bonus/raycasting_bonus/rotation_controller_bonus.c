@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:10:53 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 17:36:11 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:36:53 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void	rotate_via_mouse(void *param)
 int	get_tile_color(char c)
 {
 	if (c == '1')
-		return (0xD42525FF);
+		return (0xA07030FF);
 	else if (c == 'D')
-		return (0xFFA500FF);
+		return (0xA5622AFF);
 	else if (c == 'O')
-		return (0x00FF00FF);
+		return (0x227BB5FF);
 	else if (c == 'M')
-		return (0xFF00FFFF);
-	return (0x696969FF);
+		return (0x7E0B0BFF);
+	return (0x5C4A33FF);
 }
