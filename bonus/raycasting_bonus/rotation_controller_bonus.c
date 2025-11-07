@@ -64,9 +64,9 @@ int	get_tile_color(char c)
 	if (c == '1')
 		return (0xA07030FF);
 	else if (c == 'D')
-		return (0xA5622AFF);
+		return (0xFFA500FF);
 	else if (c == 'O')
-		return (0x227BB5FF);
+		return (0xA5622AFF);
 	else if (c == 'M')
 		return (0x7E0B0BFF);
 	return (0x5C4A33FF);
