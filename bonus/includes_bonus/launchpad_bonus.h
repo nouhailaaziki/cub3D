@@ -14,7 +14,7 @@
 # define LAUNCHPAD_BONUS_H
 
 /*--------------------- System & Library Includes ---------------------*/
-# include ".MLX42.h"           // MLX42 graphics library
+# include ".MLX42.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -56,6 +56,7 @@
 
 /*----------------------------- Structures ----------------------------*/
 
+/* Holds map and precise position data */
 typedef struct s_pos_data
 {
 	int		map_x;
@@ -64,6 +65,7 @@ typedef struct s_pos_data
 	double	t_y;
 }	t_pos_data;
 
+/* Stores texture and screen coordinates */
 typedef struct s_draw_enemy
 {
 	int	tex_x;
@@ -95,6 +97,7 @@ typedef struct s_sprite_data
 	int	sprite_screen_x;
 	int	v_move_screen;// Add this for vertical positioning
 }	t_sprite_data;
+
 /* RGB color representation */
 typedef struct s_colors
 {
@@ -117,7 +120,7 @@ typedef struct s_data
 	t_colors	ceiling;// Parsed ceiling RGB color
 }	t_data;
 
-/* Texture coordinate data */
+/* Texture coordinates data */
 typedef struct s_tex_data
 {
 	int	tex_x;// Horizontal coordinate in the texture
@@ -245,6 +248,7 @@ void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
 void	render_minimap(t_engine *engine);
 int		get_tile_color(char c);
+void	get_map_dimensions(t_engine *e, int *h, int *w);
 
 /*---------------------------- Textures --------------------------------*/
 void	calculate_texture_data(t_engine *e);
@@ -265,7 +269,7 @@ void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
 void	auto_close_doors(t_engine *engine);
 
-/*---------------------------- Enemy Functions ----------------------------*/
+/*-------------------------- Enemy Functions ---------------------------*/
 void	render_all_enemies(t_engine *engine);
 void	cleanup_enemy_textures(t_engine *engine);
 void	update_enemies_hook(void *param);
@@ -273,4 +277,5 @@ void	calculate_enemy_screen_position(t_engine *engine, t_pos_data *pos);
 void	calculate_enemy_sprite_data(double t_x, double t_y, t_sprite_data *sp);
 void	check_game_over(t_engine *engine);
 int		load_enemy_textures(t_engine *engine);
+
 #endif

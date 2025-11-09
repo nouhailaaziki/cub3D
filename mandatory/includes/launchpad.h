@@ -14,7 +14,7 @@
 # define LAUNCHPAD_H
 
 /*--------------------- System & Library Includes ---------------------*/
-# include ".MLX42.h"           // MLX42 graphics library
+# include ".MLX42.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -87,6 +87,7 @@ typedef struct s_player
 	double	planey;/* Camera plane Y */
 }	t_player;
 
+/* texture coordinates data */
 typedef struct s_tex_data
 {
 	int	tex_x;/* Horizontal coord in texture (0..width-1) */
@@ -189,6 +190,7 @@ void	raycast_frame(void *param);
 void	rotate_via_keys(void *param);
 void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
+void	get_map_dimensions(t_engine *e, int *h, int *w);
 
 /*---------------------------- Textures --------------------------------*/
 int		load_textures(t_engine *engine);
@@ -198,7 +200,7 @@ void	draw_textured_line(t_engine *e, int x, int t);
 void	draw_textured_pixel(t_engine *engine,
 			int x, int y, mlx_texture_t *tex);
 
-/****************************garbage_collector**************************/
+/*------------------------- garbage_collector --------------------------*/
 void	free_all(void *p, int flag);
 void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);

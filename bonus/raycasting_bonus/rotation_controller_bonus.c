@@ -35,9 +35,9 @@ void	rotate_via_keys(void *param)
 
 	engine = (t_engine *)param;
 	if (mlx_is_key_down(engine->mlx, MLX_KEY_LEFT))
-		rotate_player(engine, -0.01);
+		rotate_player(engine, -0.03);
 	else if (mlx_is_key_down(engine->mlx, MLX_KEY_RIGHT))
-		rotate_player(engine, 0.01);
+		rotate_player(engine, 0.03);
 }
 
 void	rotate_via_mouse(void *param)
@@ -53,9 +53,9 @@ void	rotate_via_mouse(void *param)
 		deltax = engine->mousex - engine->prev_mousex;
 		engine->prev_mousex = engine->mousex;
 		if (deltax > 0)
-			rotate_player(engine, 0.01);
+			rotate_player(engine, 0.02);
 		else if (deltax < 0)
-			rotate_player(engine, -0.01);
+			rotate_player(engine, -0.02);
 	}
 }
 

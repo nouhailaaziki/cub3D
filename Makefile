@@ -1,7 +1,6 @@
 COMPILER = cc
 
-CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
-DBGFLAGS= -fsanitize=address -g3   
+CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast
 
 FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
 

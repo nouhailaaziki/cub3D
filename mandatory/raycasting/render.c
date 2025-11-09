@@ -24,7 +24,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xFF000000);
+			mlx_put_pixel(engine->image, x++, y, 0xCFA463FF);
 		y++;
 	}
 	y = SCREEN_HEIGHT / 2;
@@ -32,7 +32,7 @@ void	render_horizon(void *param)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xFF000000);
+			mlx_put_pixel(engine->image, x++, y, 0x7A5A2CFF);
 		y++;
 	}
 }
@@ -55,5 +55,20 @@ void	raycast_frame(void *param)
 		tex_index = get_texture_index(engine);
 		draw_textured_line(engine, x, tex_index);
 		x++;
+	}
+}
+
+void	get_map_dimensions(t_engine *e, int *h, int *w)
+{
+	int	len;
+
+	*h = 0;
+	*w = 0;
+	while (e->data.map[*h])
+	{
+		len = ft_strlen(e->data.map[*h]);
+		if (len > *w)
+			*w = len;
+		(*h)++;
 	}
 }
