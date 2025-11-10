@@ -21,36 +21,16 @@
 # include <unistd.h>
 # include <limits.h>
 
+/*---------------------- Default Configuration ------------------------*/
 # define TEX_NORTH 0
 # define TEX_SOUTH 1  
 # define TEX_EAST 2
 # define TEX_WEST 3
-
-/*---------------------- Default Configuration ------------------------*/
-
-/* Buffer size for get_next_line */
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-/* Window width in pixels */
-# ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 1500
-# endif
-
-/* Window height in pixels */
-# ifndef SCREEN_HEIGHT
-#  define SCREEN_HEIGHT 900
-# endif
-
-/* Player movement speed */
-# ifndef SPEED
-#  define SPEED 0.05
-# endif
-
-# ifndef CELL_SIZE
-#  define CELL_SIZE 20
-# endif
+# define BUFFER_SIZE 1
+# define SCREEN_WIDTH 1500
+# define SCREEN_HEIGHT 900
+# define SPEED 0.05
+# define CELL_SIZE 20
 
 /*----------------------------- Structures ----------------------------*/
 
@@ -204,4 +184,5 @@ void	draw_textured_pixel(t_engine *engine,
 void	free_all(void *p, int flag);
 void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
+
 #endif
