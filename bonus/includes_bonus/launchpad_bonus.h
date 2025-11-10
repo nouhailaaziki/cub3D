@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/06 17:31:41 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:44:18 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,29 @@
 # define LAUNCHPAD_BONUS_H
 
 /*--------------------- System & Library Includes ---------------------*/
-# include ".MLX42.h"           // MLX42 graphics library
+# include ".MLX42.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
 
+/*---------------------- Default Configuration ------------------------*/
 # define TEX_NORTH 0
 # define TEX_SOUTH 1
 # define TEX_EAST 2
 # define TEX_WEST 3
 # define TEX_DOOR 4
 # define TEX_ENEMY 5
-
-/*---------------------- Default Configuration ------------------------*/
-
-/* Buffer size for get_next_line */
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-/* Window width in pixels */
-# ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 1500
-# endif
-
-/* Window height in pixels */
-# ifndef SCREEN_HEIGHT
-#  define SCREEN_HEIGHT 900
-# endif
-
-/* Player movement speed */
-# ifndef SPEED
-#  define SPEED 0.05
-# endif
-
-# ifndef CELL_SIZE
-#  define CELL_SIZE 20
-# endif
+# define BUFFER_SIZE 1
+# define SCREEN_WIDTH 1500
+# define SCREEN_HEIGHT 900
+# define SPEED 0.05
+# define CELL_SIZE 20
 
 /*----------------------------- Structures ----------------------------*/
 
+/* Holds map and precise position data */
 typedef struct s_pos_data
 {
 	int		map_x;
@@ -64,6 +45,7 @@ typedef struct s_pos_data
 	double	t_y;
 }	t_pos_data;
 
+/* Stores texture and screen coordinates */
 typedef struct s_draw_enemy
 {
 	int	tex_x;
@@ -95,6 +77,7 @@ typedef struct s_sprite_data
 	int	sprite_screen_x;
 	int	v_move_screen;// Add this for vertical positioning
 }	t_sprite_data;
+
 /* RGB color representation */
 typedef struct s_colors
 {
@@ -117,7 +100,7 @@ typedef struct s_data
 	t_colors	ceiling;// Parsed ceiling RGB color
 }	t_data;
 
-/* Texture coordinate data */
+/* Texture coordinates data */
 typedef struct s_tex_data
 {
 	int	tex_x;// Horizontal coordinate in the texture
@@ -245,6 +228,7 @@ void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
 void	render_minimap(t_engine *engine);
 int		get_tile_color(char c);
+void	get_map_dimensions(t_engine *e, int *h, int *w);
 
 /*---------------------------- Textures --------------------------------*/
 void	calculate_texture_data(t_engine *e);
@@ -265,7 +249,7 @@ void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
 void	auto_close_doors(t_engine *engine);
 
-/*---------------------------- Enemy Functions ----------------------------*/
+/*-------------------------- Enemy Functions ---------------------------*/
 void	render_all_enemies(t_engine *engine);
 void	cleanup_enemy_textures(t_engine *engine);
 void	update_enemies_hook(void *param);
@@ -273,4 +257,5 @@ void	calculate_enemy_screen_position(t_engine *engine, t_pos_data *pos);
 void	calculate_enemy_sprite_data(double t_x, double t_y, t_sprite_data *sp);
 void	check_game_over(t_engine *engine);
 int		load_enemy_textures(t_engine *engine);
+
 #endif

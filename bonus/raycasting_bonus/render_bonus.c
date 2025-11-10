@@ -61,3 +61,18 @@ void	raycast_frame(void *param)
 	render_all_enemies(engine);
 	render_minimap(engine);
 }
+
+void	get_map_dimensions(t_engine *e, int *h, int *w)
+{
+	int	len;
+
+	*h = 0;
+	*w = 0;
+	while (e->data.map[*h])
+	{
+		len = ft_strlen(e->data.map[*h]);
+		if (len > *w)
+			*w = len;
+		(*h)++;
+	}
+}

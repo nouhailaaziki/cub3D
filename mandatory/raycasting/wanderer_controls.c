@@ -14,16 +14,21 @@
 
 int	check_collision(t_engine *engine, double x, double y)
 {
-	double	r;
+	int	mx;
+	int	my;
+	int	h;
+	int	w;
 
-	r = 0.15;
-	if (engine->data.map[(int)(y)][(int)(x + r)] == '1')
+	mx = (int)floor(x);
+	my = (int)floor(y);
+	get_map_dimensions(engine, &h, &w);
+	if (!isfinite(x) || !isfinite(y))
 		return (0);
-	if (engine->data.map[(int)(y)][(int)(x - r)] == '1')
+	if (my < 0 || mx < 0 || my >= h)
 		return (0);
-	if (engine->data.map[(int)(y + r)][(int)(x)] == '1')
+	if (mx >= ft_strlen(engine->data.map[my]))
 		return (0);
-	if (engine->data.map[(int)(y - r)][(int)(x)] == '1')
+	if (engine->data.map[my][mx] == '1')
 		return (0);
 	return (1);
 }
@@ -32,9 +37,22 @@ void	handle_movement(t_engine *engine, double move_x, double move_y)
 {
 	double	new_x;
 	double	new_y;
+	int		h;
+	int		w;
 
 	new_x = engine->player.posx + move_x;
 	new_y = engine->player.posy + move_y;
+	if (!isfinite(new_x) || !isfinite(new_y))
+		return ;
+	get_map_dimensions(engine, &h, &w);
+	if (new_x < 0.0)
+		new_x = 0.0;
+	if (new_y < 0.0)
+		new_y = 0.0;
+	if (new_x >= (double)(w - 1))
+		new_x = (double)(w - 1) - 0.001;
+	if (new_y >= (double)(h - 1))
+		new_y = (double)(h - 1) - 0.001;
 	if (check_collision(engine, new_x, engine->player.posy))
 		engine->player.posx = new_x;
 	if (check_collision(engine, engine->player.posx, new_y))

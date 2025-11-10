@@ -1,9 +1,8 @@
 COMPILER = cc
 
-CFLAGS  = -Wall -Wextra -Werror -Imlx -Ofast -fsanitize=address -g3 -g
-DBGFLAGS= -fsanitize=address -g3   
+CFLAGS  = -Wall -Wextra -Werror
 
-FLMLX   = -framework OpenGL -framework AppKit libmlx42.a -Iinclude -lglfw -L"$(shell brew --prefix glfw)/lib"
+FLMLX   = libmlx42.a -lglfw -L"$(shell brew --prefix glfw)/lib"
 
 RED     = \033[0;31m
 GREEN   = \033[0;32m

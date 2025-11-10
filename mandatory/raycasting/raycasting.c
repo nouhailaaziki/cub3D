@@ -54,28 +54,39 @@ void	set_initial_sides(t_engine *engine)
 	}
 }
 
+int	dda_step(t_engine *engine, int h)
+{
+	if (engine->sidedistx < engine->sidedisty)
+	{
+		engine->sidedistx += engine->deltadistx;
+		engine->mapx += engine->stepx;
+		engine->side = 0;
+	}
+	else
+	{
+		engine->sidedisty += engine->deltadisty;
+		engine->mapy += engine->stepy;
+		engine->side = 1;
+	}
+	if (engine->mapy < 0 || engine->mapx < 0 || engine->mapy >= h)
+		return (1);
+	if (engine->mapx >= (int)ft_strlen(engine->data.map[engine->mapy]))
+		return (1);
+	if (engine->data.map[engine->mapy][engine->mapx] == '1')
+		return (1);
+	return (0);
+}
+
 void	perform_dda(t_engine *engine)
 {
 	int	hit;
+	int	h;
+	int	w;
 
 	hit = 0;
+	get_map_dimensions(engine, &h, &w);
 	while (hit == 0)
-	{
-		if (engine->sidedistx < engine->sidedisty)
-		{
-			engine->sidedistx += engine->deltadistx;
-			engine->mapx += engine->stepx;
-			engine->side = 0;
-		}
-		else
-		{
-			engine->sidedisty += engine->deltadisty;
-			engine->mapy += engine->stepy;
-			engine->side = 1;
-		}
-		if (engine->data.map[engine->mapy][engine->mapx] == '1')
-			hit = 1;
-	}
+		hit = dda_step(engine, h);
 }
 
 void	calculate_wall_projection(t_engine *engine)

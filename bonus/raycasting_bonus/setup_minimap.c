@@ -48,7 +48,7 @@ void	shade_minimap_background(t_engine *engine, int radius)
 		{
 			if ((x * x) + (y * y) <= radius * radius)
 				mlx_put_pixel(engine->image, radius + x,
-					radius + y, 0x800000FF);
+					radius + y, 0x5A3B1EFF);
 			x++;
 		}
 		y++;
@@ -71,7 +71,7 @@ void	trace_minimap_border(t_engine *engine, int radius)
 		minimap_pixel_block(engine->image,
 			center_x + radius * cos(rad),
 			center_y + radius * sin(rad),
-			0x3e3e42FF);
+			0x2C2C2EFF);
 		angle++;
 	}
 }
@@ -115,5 +115,5 @@ void	render_minimap(t_engine *engine)
 			draw_map_tiles(engine, 100, x++, y);
 		y++;
 	}
-	minimap_pixel_block(engine->image, centerx, centery, 0xF5DEB3FF);
+	minimap_pixel_block(engine->image, centerx, centery, 0xFFE2A8FF);
 }

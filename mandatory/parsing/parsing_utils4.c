@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:07:02 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/06 14:14:16 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/10 17:05:24 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	new_parsing(char *file, t_data *data)
 	line = skip_empty_lines(fd);
 	map_line = parse_map_lines(fd, line);
 	if (!map_line)
-		return (0);
+		return (close(fd), 0);
 	if (check_colors(data->f, &data->floor)
 		|| check_colors(data->c, &data->ceiling))
 		return (error_exit("Invalid color value"), 0);
@@ -92,5 +92,5 @@ int	new_parsing(char *file, t_data *data)
 	map_rectangular(&data->map, width);
 	if (check_boundiries(data->map))
 		return (error_exit("Map is not properly closed by walls"), 0);
-	return (1);
+	return (close(fd), 1);
 }
