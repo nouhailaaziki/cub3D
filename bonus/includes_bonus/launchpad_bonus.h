@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/10 15:44:18 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:02:27 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,7 @@ int		load_textures(t_engine *engine);
 void	free_all(void *p, int flag);
 void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
+void	close_fd(void);
 
 /*------------------------------ Doors ---------------------------------*/
 void	toggle_door(t_engine *engine, int x, int y);

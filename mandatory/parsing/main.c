@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:34:18 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/06 17:31:27 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:23:35 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ int	main(int argc, char **argv)
 	if (new_parsing(argv[1], &engine.data) == 0)
 	{
 		error_exit("Parsing failed");
+		close_fd();
 		return (1);
 	}
 	if (master(&engine))
+	{
+		close_fd();
 		return (1);
-	return (0);
+	}
+	return (close_fd(), 0);
 }

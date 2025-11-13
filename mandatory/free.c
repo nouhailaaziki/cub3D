@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:19:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/06 20:31:48 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:23:27 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,13 @@ void	*ft_alloc(size_t i)
 		free_and_exit(0);
 	free_all(res, 1);
 	return (res);
+}
+
+void	close_fd(void)
+{
+	int	i;
+
+	i = 3;
+	while (i < OPEN_MAX)
+		close(i++);
 }

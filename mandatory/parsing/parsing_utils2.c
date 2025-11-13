@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/03 17:15:00 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:47:17 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,24 @@ int	ft_is_valid_color_value(char *s)
 	return (1);
 }
 
+int	validate_comma_format(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == ',' || line[ft_strlen(line) - 1] == ',')
+		return (0);
+	while (line[i])
+	{
+		if (line[i] == ',' && (line[i + 1] == ',' || !line[i + 1]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_colors(char *line, t_colors *color)
 {
 	char	**parts;
@@ -67,11 +85,13 @@ int	check_colors(char *line, t_colors *color)
 	i = ft_strlen(line) - 1;
 	while (i >= 0 && (line[i] == '\n' || line[i] == '\r'))
 		line[i--] = '\0';
+	if (!validate_comma_format(line))
+		return (1);
 	parts = ft_my_split(line, ',');
 	i = 0;
 	while (parts[i])
 		i++;
-	if (i != 3 || parts[3] != NULL)
+	if (i != 3)
 		return (1);
 	if (!ft_is_valid_color_value(parts[0]) || !ft_is_valid_color_value(parts[1])
 		|| !ft_is_valid_color_value(parts[2]))

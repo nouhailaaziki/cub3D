@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/03 17:13:28 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:27:54 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,6 @@ void	draw_textured_pixel(t_engine *engine,
 void	free_all(void *p, int flag);
 void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
+void	close_fd(void);
 
 #endif
