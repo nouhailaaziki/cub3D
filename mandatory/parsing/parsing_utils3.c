@@ -6,13 +6,13 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:38:12 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/09 17:01:17 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:55:36 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/launchpad.h"
 
-int	iszeroplayerdoor(char c)
+int	iszeroplayer(char c)
 {
 	return (c == '0' || c == 'N' || c == 'W' || c == 'E' || c == 'S');
 }
@@ -28,7 +28,7 @@ int	check_boundiries(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (iszeroplayerdoor(map[i][j]) && (i == 0 || j == 0
+			if (iszeroplayer(map[i][j]) && (i == 0 || j == 0
 			|| !map[i][j + 1] || !map[i + 1] || check_zero(map[i][j + 1])
 			|| check_zero(map[i][j - 1]) || check_zero(map[i + 1][j])
 			|| check_zero(map[i - 1][j])))

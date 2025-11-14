@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:07:02 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/06 14:14:16 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:27:33 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,19 @@ int	new_parsing(char *file, t_data *data)
 	init_data_elements(data);
 	fd = openning_file(file);
 	if (!parse_elements(fd, data))
-		return (close(fd), 0);
+		return (close(fd), close_fd(), 0);
 	line = skip_empty_lines(fd);
 	map_line = parse_map_lines(fd, line);
 	if (!map_line)
-		return (0);
+		return (close(fd), close_fd(), 0);
 	if (check_colors(data->f, &data->floor)
 		|| check_colors(data->c, &data->ceiling))
-		return (error_exit("Invalid color value"), 0);
+		return (close(fd), close_fd(), error_exit("Invalid color value"), 0);
 	data->map = ft_my_split(map_line, '\n');
 	getmap_dimentions(data->map, &height, &width);
 	map_rectangular(&data->map, width);
 	if (check_boundiries(data->map))
-		return (error_exit("Map is not properly closed by walls"), 0);
-	return (1);
+		return (close(fd), close_fd(),
+			error_exit("Map is not properly closed by walls"), 0);
+	return (close(fd), close_fd(), 1);
 }

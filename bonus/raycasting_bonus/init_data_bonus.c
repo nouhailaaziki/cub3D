@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:37:12 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/20 17:55:27 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:27:30 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,17 @@ void	setup_ray(t_engine *engine, int x)
 	engine->player.planex * engine->camerax;
 	engine->raydiry = engine->player.diry + \
 	engine->player.planey * engine->camerax;
+}
+
+int	get_tile_color(char c)
+{
+	if (c == '1')
+		return (0xA07030FF);
+	else if (c == 'D')
+		return (0xFFA500FF);
+	else if (c == 'O')
+		return (0xA5622AFF);
+	else if (c == 'M')
+		return (0x7E0B0BFF);
+	return (0x5C4A33FF);
 }

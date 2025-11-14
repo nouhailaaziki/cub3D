@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launchpad.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/03 17:13:28 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:35:27 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ typedef struct s_engine
 	double			wall_x;/* Exact position where ray hit wall */
 	double			tex_pos;/* Vertical pos in texture while drawing */
 	mlx_t			*mlx;/* MLX window instance */
-	mlx_image_t		*image;/* MLX image buffer */
 	t_data			data;/* Map and texture data */
 	t_player		player;/* Player info */
+	mlx_image_t		*image;/* MLX image buffer */
 	mlx_texture_t	*so;/* South wall texture */
 	mlx_texture_t	*we;/* West wall texture */
 	mlx_texture_t	*no;/* North wall texture */
@@ -184,5 +184,6 @@ void	draw_textured_pixel(t_engine *engine,
 void	free_all(void *p, int flag);
 void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
+void	close_fd(void);
 
 #endif

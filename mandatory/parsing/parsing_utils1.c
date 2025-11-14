@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 15:17:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/04 20:16:23 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:04:09 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	file_exists(const char *filename)
 		error_exit("Cannot open file");
 		return (1);
 	}
-	close(fd);
 	return (0);
 }
 
