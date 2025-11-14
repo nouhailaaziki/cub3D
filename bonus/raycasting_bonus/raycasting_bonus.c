@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:39:54 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/15 16:14:48 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:09:16 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,44 +54,40 @@ void	set_initial_sides(t_engine *engine)
 	}
 }
 
-void	update_ray_step(t_engine *e)
+int	dda_step(t_engine *engine, int h)
 {
-	if (e->sidedistx < e->sidedisty)
+	if (engine->sidedistx < engine->sidedisty)
 	{
-		e->sidedistx += e->deltadistx;
-		e->mapx += e->stepx;
-		e->side = 0;
+		engine->sidedistx += engine->deltadistx;
+		engine->mapx += engine->stepx;
+		engine->side = 0;
 	}
 	else
 	{
-		e->sidedisty += e->deltadisty;
-		e->mapy += e->stepy;
-		e->side = 1;
+		engine->sidedisty += engine->deltadisty;
+		engine->mapy += engine->stepy;
+		engine->side = 1;
 	}
+	if (engine->mapy < 0 || engine->mapx < 0 || engine->mapy >= h)
+		return (1);
+	if (engine->mapx >= (int)ft_strlen(engine->data.map[engine->mapy]))
+		return (1);
+	if (engine->data.map[engine->mapy][engine->mapx] == '1'
+		|| engine->data.map[engine->mapy][engine->mapx] == 'D')
+		return (1);
+	return (0);
 }
 
-void	perform_dda(t_engine *e)
+void	perform_dda(t_engine *engine)
 {
-	int		hit;
-	char	c;
+	int	hit;
+	int	h;
+	int	w;
 
 	hit = 0;
-	e->hit_door = 0;
-	while (!hit)
-	{
-		update_ray_step(e);
-		c = e->data.map[e->mapy][e->mapx];
-		if (c == '1')
-		{
-			hit = 1;
-			e->hit_door = 0;
-		}
-		else if (c == 'D')
-		{
-			hit = 1;
-			e->hit_door = 1;
-		}
-	}
+	get_map_dimensions(engine, &h, &w);
+	while (hit == 0)
+		hit = dda_step(engine, h);
 }
 
 void	calculate_wall_projection(t_engine *engine)

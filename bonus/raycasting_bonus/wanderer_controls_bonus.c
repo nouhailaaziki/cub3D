@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:12:43 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 16:20:55 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:43:56 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 int	check_collision(t_engine *engine, double x, double y)
 {
-	double	r;
-	int		map_x;
-	int		map_y;
+	int	mx;
+	int	my;
+	int	h;
+	int	w;
 
-	r = 0.15;
-	map_x = (int)x;
-	map_y = (int)y;
-	if (engine->data.map[map_y][map_x] == '1'
-		|| engine->data.map[map_y][map_x] == 'D')
+	mx = (int)floor(x);
+	my = (int)floor(y);
+	get_map_dimensions(engine, &h, &w);
+	if (!isfinite(x) || !isfinite(y))
 		return (0);
-	if (engine->data.map[(int)(y)][(int)(x + r)] == '1'
-		|| engine->data.map[(int)(y)][(int)(x + r)] == 'D')
+	if (my < 0 || mx < 0 || my >= h)
 		return (0);
-	if (engine->data.map[(int)(y)][(int)(x - r)] == '1'
-		|| engine->data.map[(int)(y)][(int)(x - r)] == 'D')
+	if (mx >= ft_strlen(engine->data.map[my]))
 		return (0);
-	if (engine->data.map[(int)(y + r)][(int)(x)] == '1'
-		|| engine->data.map[(int)(y + r)][(int)(x)] == 'D')
-		return (0);
-	if (engine->data.map[(int)(y - r)][(int)(x)] == '1'
-		|| engine->data.map[(int)(y - r)][(int)(x)] == 'D')
+	if (engine->data.map[my][mx] == '1' || engine->data.map[my][mx] == 'D')
 		return (0);
 	return (1);
 }
@@ -43,9 +37,22 @@ void	handle_movement(t_engine *engine, double move_x, double move_y)
 {
 	double	new_x;
 	double	new_y;
+	int		h;
+	int		w;
 
 	new_x = engine->player.posx + move_x;
 	new_y = engine->player.posy + move_y;
+	if (!isfinite(new_x) || !isfinite(new_y))
+		return ;
+	get_map_dimensions(engine, &h, &w);
+	if (new_x < 0.0)
+		new_x = 0.0;
+	if (new_y < 0.0)
+		new_y = 0.0;
+	if (new_x >= (double)(w - 1))
+		new_x = (double)(w - 1) - 0.001;
+	if (new_y >= (double)(h - 1))
+		new_y = (double)(h - 1) - 0.001;
 	if (check_collision(engine, new_x, engine->player.posy))
 		engine->player.posx = new_x;
 	if (check_collision(engine, engine->player.posx, new_y))
@@ -74,6 +81,7 @@ void	wanderer_controls(void *param)
 
 	engine = (t_engine *)param;
 	handle_wasd_keys(engine);
+	auto_close_doors(engine);
 	if (mlx_is_key_down(engine->mlx, MLX_KEY_ESCAPE))
 	{
 		ft_putstr_fd("You chose to escape... \

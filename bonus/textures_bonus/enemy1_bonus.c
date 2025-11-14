@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:11:08 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/23 13:31:36 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:10:32 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	load_enemy_textures(t_engine *engine)
 	char	*frames[6];
 	int		i;
 
-	frames[0] = "./tex/fire1.png";
-	frames[1] = "./tex/fire2.png";
-	frames[2] = "./tex/fire3.png";
-	frames[3] = "./tex/fire4.png";
-	frames[4] = "./tex/fire5.png";
-	frames[5] = "./tex/fire6.png";
+	frames[0] = "./tex/enemy1.png";
+	frames[1] = "./tex/enemy2.png";
+	frames[2] = "./tex/enemy3.png";
+	frames[3] = "./tex/enemy4.png";
+	frames[4] = "./tex/enemy5.png";
+	frames[5] = "./tex/enemy6.png";
 	i = 0;
 	while (i < 6)
 	{

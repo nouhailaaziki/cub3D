@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:53:22 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/23 16:26:22 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:40:33 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	init_mlx_engine(t_engine *engine)
 	return (0);
 }
 
-static void	set_mlx_hooks(t_engine *engine)
+void	set_mlx_hooks(t_engine *engine)
 {
 	mlx_loop_hook(engine->mlx, render_horizon, engine);
 	mlx_loop_hook(engine->mlx, raycast_frame, engine);
@@ -40,7 +40,6 @@ static void	set_mlx_hooks(t_engine *engine)
 	mlx_loop_hook(engine->mlx, update_enemies_hook, engine);
 	mlx_loop_hook(engine->mlx, wanderer_controls, engine);
 	mlx_close_hook(engine->mlx, farewell_wanderer, engine);
-	mlx_set_cursor_mode(engine->mlx, MLX_MOUSE_DISABLED);
 }
 
 int	master(t_engine *engine)

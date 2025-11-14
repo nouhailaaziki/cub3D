@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:34:18 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/06 20:22:39 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:53:19 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (master(&engine))
+	{
+		close_fd();
 		return (1);
-	return (0);
+	}
+	return (close_fd(), 0);
 }

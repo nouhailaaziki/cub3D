@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launchpad_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/03 17:13:22 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:35:13 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,29 @@
 # define LAUNCHPAD_BONUS_H
 
 /*--------------------- System & Library Includes ---------------------*/
-# include ".MLX42.h"           // MLX42 graphics library
+# include ".MLX42.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
-# include <stdio.h>
 
+/*---------------------- Default Configuration ------------------------*/
 # define TEX_NORTH 0
 # define TEX_SOUTH 1
 # define TEX_EAST 2
 # define TEX_WEST 3
 # define TEX_DOOR 4
 # define TEX_ENEMY 5
-
-/*---------------------- Default Configuration ------------------------*/
-
-/* Buffer size for get_next_line */
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-/* Window width in pixels */
-# ifndef SCREEN_WIDTH
-#  define SCREEN_WIDTH 1500
-# endif
-
-/* Window height in pixels */
-# ifndef SCREEN_HEIGHT
-#  define SCREEN_HEIGHT 900
-# endif
-
-/* Player movement speed */
-# ifndef SPEED
-#  define SPEED 0.05
-# endif
-
-# ifndef CELL_SIZE
-#  define CELL_SIZE 20
-# endif
+# define BUFFER_SIZE 1
+# define SCREEN_WIDTH 1500
+# define SCREEN_HEIGHT 900
+# define SPEED 0.05
+# define CELL_SIZE 20
 
 /*----------------------------- Structures ----------------------------*/
 
+/* Holds map and precise position data */
 typedef struct s_pos_data
 {
 	int		map_x;
@@ -65,13 +45,14 @@ typedef struct s_pos_data
 	double	t_y;
 }	t_pos_data;
 
-typedef struct s_draw_data
+/* Stores texture and screen coordinates */
+typedef struct s_draw_enemy
 {
 	int	tex_x;
 	int	tex_y;
 	int	x;
 	int	y;
-}	t_draw_data;
+}	t_draw_enemy;
 
 /* Enemy animation data */
 typedef struct s_enemy
@@ -96,6 +77,7 @@ typedef struct s_sprite_data
 	int	sprite_screen_x;
 	int	v_move_screen;// Add this for vertical positioning
 }	t_sprite_data;
+
 /* RGB color representation */
 typedef struct s_colors
 {
@@ -118,7 +100,7 @@ typedef struct s_data
 	t_colors	ceiling;// Parsed ceiling RGB color
 }	t_data;
 
-/* Texture coordinate data */
+/* Texture coordinates data */
 typedef struct s_tex_data
 {
 	int	tex_x;// Horizontal coordinate in the texture
@@ -143,6 +125,8 @@ typedef struct s_engine
 	mlx_texture_t	*we;// West wall texture path
 	mlx_texture_t	*no;// North wall texture path
 	mlx_texture_t	*ea;// East wall texture path
+	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
+	mlx_texture_t	*door;
 	mlx_texture_t	*current_tex;// pointer to which texture 
 								//we're currently using
 	int				mapx;// Current map X coordinate
@@ -153,6 +137,8 @@ typedef struct s_engine
 	int				lineheight;// Height of the wall slice
 	int				drawstart;// Start Y pixel for drawing wall
 	int				drawend;// End Y pixel for drawing wall
+	int				space_pressed;
+	bool			mouse_key_prev;
 	short			mouse;
 	int32_t			mousex;
 	int32_t			mousey;
@@ -166,18 +152,14 @@ typedef struct s_engine
 	double			sidedisty;// Side distance Y
 	double			perpwalldist;// Perpendicular distance to wall
 	double			wall_x;// the exact position where the ray hit the wall
+	double			animation_time;// Global animation timer
+	double			*buffer;
 	double			tex_pos;//Tracks the vertical position in the texture as we 
 							//draw the wall slice
 	mlx_t			*mlx;// MLX window instance
-	mlx_image_t		*image;// MLX image buffer
 	t_data			data;// Map and texture data
 	t_player		player;// Player info
-	mlx_texture_t	*door;
-	int				hit_door;
-	int				space_pressed;
-	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
-	double			animation_time;// Global animation timer
-	double			*buffer;
+	mlx_image_t		*image;// MLX image buffer
 }	t_engine;
 
 /*----------------------------- Parsing --------------------------------*/
@@ -247,6 +229,7 @@ void	wanderer_controls(void *param);
 void	farewell_wanderer(void *param);
 void	render_minimap(t_engine *engine);
 int		get_tile_color(char c);
+void	get_map_dimensions(t_engine *e, int *h, int *w);
 
 /*---------------------------- Textures --------------------------------*/
 void	calculate_texture_data(t_engine *e);
@@ -260,14 +243,15 @@ int		load_textures(t_engine *engine);
 void	free_all(void *p, int flag);
 void	free_and_exit(size_t i);
 void	*ft_alloc(size_t i);
+void	close_fd(void);
 
 /*------------------------------ Doors ---------------------------------*/
-int		is_player_near_door(t_engine *engine, int door_x, int door_y);
 void	toggle_door(t_engine *engine, int x, int y);
 void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
+void	auto_close_doors(t_engine *engine);
 
-/*---------------------------- Enemy Functions ----------------------------*/
+/*-------------------------- Enemy Functions ---------------------------*/
 void	render_all_enemies(t_engine *engine);
 void	cleanup_enemy_textures(t_engine *engine);
 void	update_enemies_hook(void *param);
@@ -275,4 +259,5 @@ void	calculate_enemy_screen_position(t_engine *engine, t_pos_data *pos);
 void	calculate_enemy_sprite_data(double t_x, double t_y, t_sprite_data *sp);
 void	check_game_over(t_engine *engine);
 int		load_enemy_textures(t_engine *engine);
+
 #endif
