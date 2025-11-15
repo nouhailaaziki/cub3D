@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/13 16:02:27 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/15 13:50:51 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ typedef struct s_engine
 	mlx_texture_t	*we;// West wall texture path
 	mlx_texture_t	*no;// North wall texture path
 	mlx_texture_t	*ea;// East wall texture path
+	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
+	mlx_texture_t	*door;
 	mlx_texture_t	*current_tex;// pointer to which texture 
 								//we're currently using
 	int				mapx;// Current map X coordinate
@@ -135,6 +137,8 @@ typedef struct s_engine
 	int				lineheight;// Height of the wall slice
 	int				drawstart;// Start Y pixel for drawing wall
 	int				drawend;// End Y pixel for drawing wall
+	int				space_pressed;
+	bool			mouse_key_prev;
 	short			mouse;
 	int32_t			mousex;
 	int32_t			mousey;
@@ -148,17 +152,14 @@ typedef struct s_engine
 	double			sidedisty;// Side distance Y
 	double			perpwalldist;// Perpendicular distance to wall
 	double			wall_x;// the exact position where the ray hit the wall
+	double			animation_time;// Global animation timer
+	double			*buffer;
 	double			tex_pos;//Tracks the vertical position in the texture as we 
 							//draw the wall slice
 	mlx_t			*mlx;// MLX window instance
-	mlx_image_t		*image;// MLX image buffer
 	t_data			data;// Map and texture data
 	t_player		player;// Player info
-	mlx_texture_t	*door;
-	int				space_pressed;
-	mlx_texture_t	*enemy_frames[6];// Array for 6 animation frames
-	double			animation_time;// Global animation timer
-	double			*buffer;
+	mlx_image_t		*image;// MLX image buffer
 }	t_engine;
 
 /*----------------------------- Parsing --------------------------------*/
@@ -207,7 +208,6 @@ char	*get_data(char *line, char c);
 /*----------------------------- Map Checks -----------------------------*/
 int		check_zero(char c);
 int		check_boundiries(char **map);
-int		iszeroplayerdoor(char c);
 
 /*----------------------------- Exit -----------------------------------*/
 void	error_exit(char *message);

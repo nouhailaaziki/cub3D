@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 20:10:44 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/13 16:00:59 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:49:45 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	free_all(void *p, int flag)
 void	free_and_exit(size_t i)
 {
 	free_all(NULL, 0);
+	close_fd();
 	exit (i);
 }
 

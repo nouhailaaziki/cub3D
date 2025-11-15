@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/13 17:27:54 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/15 13:51:02 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ typedef struct s_engine
 	double			wall_x;/* Exact position where ray hit wall */
 	double			tex_pos;/* Vertical pos in texture while drawing */
 	mlx_t			*mlx;/* MLX window instance */
-	mlx_image_t		*image;/* MLX image buffer */
 	t_data			data;/* Map and texture data */
 	t_player		player;/* Player info */
+	mlx_image_t		*image;/* MLX image buffer */
 	mlx_texture_t	*so;/* South wall texture */
 	mlx_texture_t	*we;/* West wall texture */
 	mlx_texture_t	*no;/* North wall texture */
@@ -152,7 +152,6 @@ char	*get_data(char *line, char c);
 /*----------------------------- Map Checks -----------------------------*/
 int		check_zero(char c);
 int		check_boundiries(char **map);
-int		iszeroplayerdoor(char c);
 
 /*----------------------------- Exit ----------------------------------*/
 void	error_exit(char *message);

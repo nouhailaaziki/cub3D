@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:38:37 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/06 16:14:07 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:15:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,26 @@ void	render_horizon(void *param)
 	int			x;
 	int			y;
 	t_engine	*engine;
+	t_colors	colors;
 
 	y = 0;
 	engine = (t_engine *)param;
+	colors = engine->data.ceiling;
 	while (y < SCREEN_HEIGHT / 2)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0xCFA463FF);
+			mlx_put_pixel(engine->image, x++, y, (colors.r << 24)
+				+ (colors.g << 16) + (colors.b << 8) + 255);
 		y++;
 	}
-	y = SCREEN_HEIGHT / 2;
+	colors = engine->data.floor;
 	while (y < SCREEN_HEIGHT)
 	{
 		x = 0;
 		while (x < SCREEN_WIDTH)
-			mlx_put_pixel(engine->image, x++, y, 0x7A5A2CFF);
+			mlx_put_pixel(engine->image, x++, y, (colors.r << 24)
+				+ (colors.g << 16) + (colors.b << 8) + 255);
 		y++;
 	}
 }

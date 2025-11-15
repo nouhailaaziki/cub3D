@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation_controller_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:10:53 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/06 13:36:53 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/14 12:48:41 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,38 @@ void	rotate_via_keys(void *param)
 		rotate_player(engine, 0.03);
 }
 
+void	toggle_mouse_mode(t_engine *engine)
+{
+	bool	key_down;
+
+	key_down = mlx_is_key_down(engine->mlx, MLX_KEY_M);
+	if (key_down && !engine->mouse_key_prev)
+	{
+		engine->mouse = !engine->mouse;
+		if (engine->mouse)
+		{
+			mlx_set_cursor_mode(engine->mlx, MLX_MOUSE_DISABLED);
+			mlx_get_mouse_pos(engine->mlx, &engine->mousex, &engine->mousey);
+			engine->prev_mousex = engine->mousex;
+		}
+		else
+			mlx_set_cursor_mode(engine->mlx, MLX_MOUSE_NORMAL);
+	}
+	engine->mouse_key_prev = key_down;
+}
+
 void	rotate_via_mouse(void *param)
 {
 	t_engine	*engine;
 	double		deltax;
 
 	engine = (t_engine *)param;
-	if (engine->mouse || mlx_is_key_down(engine->mlx, MLX_KEY_M))
-	{
-		engine->mouse = 1;
-		mlx_get_mouse_pos(engine->mlx, &engine->mousex, &engine->mousey);
-		deltax = engine->mousex - engine->prev_mousex;
-		engine->prev_mousex = engine->mousex;
-		if (deltax > 0)
-			rotate_player(engine, 0.02);
-		else if (deltax < 0)
-			rotate_player(engine, -0.02);
-	}
-}
-
-int	get_tile_color(char c)
-{
-	if (c == '1')
-		return (0xA07030FF);
-	else if (c == 'D')
-		return (0xFFA500FF);
-	else if (c == 'O')
-		return (0xA5622AFF);
-	else if (c == 'M')
-		return (0x7E0B0BFF);
-	return (0x5C4A33FF);
+	toggle_mouse_mode(engine);
+	if (!engine->mouse)
+		return ;
+	mlx_get_mouse_pos(engine->mlx, &engine->mousex, &engine->mousey);
+	deltax = engine->mousex - engine->prev_mousex;
+	engine->prev_mousex = engine->mousex;
+	if (deltax != 0)
+		rotate_player(engine, deltax * 0.002);
 }
