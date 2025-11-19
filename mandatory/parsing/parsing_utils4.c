@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:07:02 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/13 17:27:33 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:46:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../launchpad.h"
 
 void	map_rectangular(char ***map_2d, int width)
 {

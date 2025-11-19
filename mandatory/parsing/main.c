@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:34:18 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/15 13:23:07 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:46:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../launchpad.h"
 
 int	main(int argc, char **argv)
 {

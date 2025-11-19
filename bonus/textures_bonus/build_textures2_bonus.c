@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:27:45 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/19 15:58:51 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:54 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 mlx_texture_t	*get_texture(t_engine *e, int t)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:58:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/05 19:50:05 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:46:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../launchpad.h"
 
 char	*check_backup(char **backup )
 {

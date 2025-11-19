@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 15:17:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/15 13:47:21 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:46:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../launchpad.h"
 
 int	validate_args(int argc, char **argv)
 {

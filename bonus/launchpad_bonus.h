@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/19 16:16:19 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:45:51 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LAUNCHPAD_BONUS_H
 
 /*--------------------- System & Library Includes ---------------------*/
-# include ".MLX42.h"
+# include "../.MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <fcntl.h>
 # include <stdlib.h>

@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:50:32 by noaziki           #+#    #+#             */
-/*   Updated: 2025/09/06 11:41:43 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:46:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../launchpad.h"
 
 static int	skip(const char *str, int *s)
 {

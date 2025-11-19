@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   build_textures2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:35:29 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/01 16:35:45 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:46:44 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/launchpad.h"
+#include "../launchpad.h"
 
 mlx_texture_t	*get_texture(t_engine *e, int t)
 {

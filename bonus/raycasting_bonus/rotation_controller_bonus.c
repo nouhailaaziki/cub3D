@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:10:53 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/14 12:48:41 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:43 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 void	rotate_player(t_engine *engine, double angle)
 {

@@ -1,8 +1,8 @@
 COMPILER = cc
-
 CFLAGS  = -Wall -Wextra -Werror
+MAKEFLAGS += -s
 
-FLMLX   = libmlx42.a -lglfw -L"$(shell brew --prefix glfw)/lib"
+FLMLX   = .MLX42/build/libmlx42.a -lglfw -L"$(shell brew --prefix glfw)/lib"
 
 RED     = \033[0;31m
 GREEN   = \033[0;32m
@@ -51,31 +51,38 @@ OBJB = ${BONUS:.c=.o}
 
 all: ${NAME}
 
-${NAME} : ${OBJM}
-	@echo "${YELLOW} ${BOLD}➤ Launching compilation...${RESET}"
-	@${COMPILER} ${CFLAGS} ${FMLX} ${OBJM} -o ${NAME} ${FLMLX}
-	@echo "${GREEN} ${BOLD}➤ ${NAME} successfully compiled ✓${RESET}"
+${NAME}: ${OBJM}
+	@echo "${YELLOW}${BOLD}➤ Launching MLX42 build...${RESET}"
+	@(cd .MLX42 && cmake -B build) 2> /dev/null 1>&2
+	@make -C .MLX42/build 1>/dev/null
+	@echo "${YELLOW}${BOLD}➤ Building cub3D...${RESET}"
+	@${COMPILER} ${CFLAGS} ${OBJM} -o ${NAME} ${FLMLX}
+	@echo "${GREEN}${BOLD}✓ cub3D compiled successfully${RESET}"
 
-bonus : ${OBJB}
-	@echo "${YELLOW} ${BOLD}➤ Launching compilation...${RESET}"
-	@${COMPILER} ${CFLAGS} ${FMLX} ${OBJB} -o ${BONUS_NAME} ${FLMLX}
-	@echo "${GREEN} ${BOLD}➤ ${NAME} successfully compiled ✓${RESET}"
+bonus: ${OBJB}
+	@echo "${YELLOW}${BOLD}➤ Launching MLX42 build...${RESET}"
+	@(cd .MLX42 && cmake -B build) 2> /dev/null 1>&2
+	@make -C .MLX42/build 1>/dev/null
+	@echo "${YELLOW}${BOLD}➤ Building cub3D_bonus...${RESET}"
+	@${COMPILER} ${CFLAGS} ${OBJB} -o ${BONUS_NAME} ${FLMLX}
+	@echo "${GREEN}${BOLD}✓ cub3D_bonus compiled successfully${RESET}"
 
 mandatory/%.o: mandatory/%.c ${HEADER}
 	@printf "${BLUE}Compiling: ${YELLOW}$<${RESET}\r"
-	@${COMPILER} ${CFLAGS} ${FMLX} -c $< -o $@
+	@${COMPILER} ${CFLAGS} -c $< -o $@
 
 bonus/%.o: bonus/%.c ${HEADER_BONUS}
 	@printf "${BLUE}Compiling: ${YELLOW}$<${RESET}\r"
-	@${COMPILER} ${CFLAGS} ${FMLX} -c $< -o $@
+	@${COMPILER} ${CFLAGS} -c $< -o $@
 
 clean:
 	@${RM} ${OBJM} ${OBJB}
+	@ rm -rf .MLX42/build
 	@echo "${BLUE}${BOLD}✓ Object files removed${RESET}"
 
 fclean: clean
 	@${RM} ${NAME} ${BONUS_NAME}
-	@echo "${RED}${BOLD}✓ Executable removed${RESET}"
+	@echo "${RED}${BOLD}✓ Executables removed${RESET}"
 
 re: fclean all
 

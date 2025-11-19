@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:11:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/16 19:42:10 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:57 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 void	find_and_toggle_nearby_doors(t_engine *engine)
 {

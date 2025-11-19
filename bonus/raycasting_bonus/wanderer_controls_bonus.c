@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:12:43 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/19 15:57:54 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:49 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 int	check_collision(t_engine *engine, char **map, double x, double y)
 {

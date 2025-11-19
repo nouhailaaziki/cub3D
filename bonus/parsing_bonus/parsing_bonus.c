@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 int	init_data_elements(t_data *data)
 {

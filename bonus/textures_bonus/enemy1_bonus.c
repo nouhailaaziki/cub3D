@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   enemy1_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 18:11:08 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/06 17:10:32 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:58 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 int	load_enemy_textures(t_engine *engine)
 {

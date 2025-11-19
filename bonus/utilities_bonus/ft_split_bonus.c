@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:02:59 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/05 20:19:05 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:49:19 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 static size_t	ft_counter(char *s, char c)
 {

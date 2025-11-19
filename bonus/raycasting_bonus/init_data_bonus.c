@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 10:37:12 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/14 12:27:30 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:37 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 void	set_player_direction(t_player *player, char c)
 {

@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 20:10:44 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/14 12:49:45 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:47:24 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes_bonus/launchpad_bonus.h"
+#include "launchpad_bonus.h"
 
 void	free_all(void *p, int flag)
 {

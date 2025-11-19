@@ -6,11 +6,11 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/19 16:10:19 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:30 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 int	validate_map_char(char *line)
 {

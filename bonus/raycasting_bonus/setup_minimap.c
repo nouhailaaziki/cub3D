@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   setup_minimap.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 12:53:17 by noaziki           #+#    #+#             */
-/*   Updated: 2025/10/20 16:11:20 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:47 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 void	minimap_pixel_block(mlx_image_t *img, int x, int y, uint32_t color)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   master_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:53:22 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/17 18:20:24 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:48:39 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 int	init_mlx_engine(t_engine *engine)
 {

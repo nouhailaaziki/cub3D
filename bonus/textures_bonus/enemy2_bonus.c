@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   enemy2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 19:02:25 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/17 18:31:39 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 18:49:01 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes_bonus/launchpad_bonus.h"
+#include "../launchpad_bonus.h"
 
 void	draw_enemy_pixel(t_engine *e, t_draw_enemy d)
 {
