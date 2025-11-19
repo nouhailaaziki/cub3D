@@ -60,9 +60,6 @@ void	draw_textured_pixel(t_engine *engine, int x, int y,
 	uint32_t	color;
 
 	tex_data.tex_x = (int)(engine->wall_x * tex->width);
-	if ((engine->side == 0 && engine->raydirx > 0)
-		|| (engine->side == 1 && engine->raydiry < 0))
-		tex_data.tex_x = tex->width - tex_data.tex_x - 1;
 	tex_data.tex_y = (int)engine->tex_pos;
 	if (tex_data.tex_x < 0 || tex_data.tex_x >= (int)tex->width
 		|| tex_data.tex_y < 0 || tex_data.tex_y >= (int)tex->height)
