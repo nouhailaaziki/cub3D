@@ -6,19 +6,11 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:11:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/04 15:57:49 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/16 19:42:10 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_bonus/launchpad_bonus.h"
-
-void	toggle_door(t_engine *engine, int x, int y)
-{
-	if (engine->data.map[y][x] == 'D')
-		engine->data.map[y][x] = 'O';
-	else if (engine->data.map[y][x] == 'O')
-		engine->data.map[y][x] = 'D';
-}
 
 void	find_and_toggle_nearby_doors(t_engine *engine)
 {
@@ -27,11 +19,8 @@ void	find_and_toggle_nearby_doors(t_engine *engine)
 
 	front_x = (int)(engine->player.posx + engine->player.dirx);
 	front_y = (int)(engine->player.posy + engine->player.diry);
-	if (engine->data.map[front_y][front_x] == 'D' ||
-		engine->data.map[front_y][front_x] == 'O')
-	{
-		toggle_door(engine, front_x, front_y);
-	}
+	if (engine->data.map[front_y][front_x] == 'D')
+		engine->data.map[front_y][front_x] = 'O';
 }
 
 void	handle_doors(void *param)

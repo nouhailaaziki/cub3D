@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:40:03 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/13 15:47:17 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:10:25 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	validate_map_char(char *line)
 		i++;
 	}
 	if (cp != 1)
-		return (error_exit("It should be just 1 player"), 1);
+		return (error_exit("It should be 1 player"), 1);
 	return (0);
 }
 

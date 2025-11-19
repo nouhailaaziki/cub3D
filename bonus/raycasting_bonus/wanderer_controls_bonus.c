@@ -3,32 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   wanderer_controls_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 22:12:43 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/04 15:43:56 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:57:54 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_bonus/launchpad_bonus.h"
 
-int	check_collision(t_engine *engine, double x, double y)
+int	check_collision(t_engine *engine, char **map, double x, double y)
 {
-	int	mx;
-	int	my;
+	int	map_x;
+	int	map_y;
 	int	h;
 	int	w;
 
-	mx = (int)floor(x);
-	my = (int)floor(y);
+	map_x = (int)floor(x);
+	map_y = (int)floor(y);
 	get_map_dimensions(engine, &h, &w);
-	if (!isfinite(x) || !isfinite(y))
+	if (!isfinite(x) || !isfinite(y) || map_y < 0 || map_x < 0 || map_y >= h)
 		return (0);
-	if (my < 0 || mx < 0 || my >= h)
+	if (map[map_y][map_x] == '1' || map[map_y][map_x] == 'D')
 		return (0);
-	if (mx >= ft_strlen(engine->data.map[my]))
-		return (0);
-	if (engine->data.map[my][mx] == '1' || engine->data.map[my][mx] == 'D')
+	if (map[(int)(y)][(int)(x + 0.25)] == '1'
+		|| map[(int)(y)][(int)(x + 0.25)] == 'D'
+		|| map[(int)(y)][(int)(x - 0.25)] == '1'
+		|| map[(int)(y)][(int)(x - 0.25)] == 'D'
+		|| map[(int)(y + 0.25)][(int)(x)] == '1'
+		|| map[(int)(y + 0.25)][(int)(x)] == 'D'
+		|| map[(int)(y - 0.25)][(int)(x)] == '1'
+		|| map[(int)(y - 0.25)][(int)(x)] == 'D')
 		return (0);
 	return (1);
 }
@@ -53,9 +58,9 @@ void	handle_movement(t_engine *engine, double move_x, double move_y)
 		new_x = (double)(w - 1) - 0.001;
 	if (new_y >= (double)(h - 1))
 		new_y = (double)(h - 1) - 0.001;
-	if (check_collision(engine, new_x, engine->player.posy))
+	if (check_collision(engine, engine->data.map, new_x, engine->player.posy))
 		engine->player.posx = new_x;
-	if (check_collision(engine, engine->player.posx, new_y))
+	if (check_collision(engine, engine->data.map, engine->player.posx, new_y))
 		engine->player.posy = new_y;
 }
 

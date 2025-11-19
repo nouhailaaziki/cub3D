@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launchpad.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/14 12:35:27 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/15 13:51:02 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ char	*get_data(char *line, char c);
 /*----------------------------- Map Checks -----------------------------*/
 int		check_zero(char c);
 int		check_boundiries(char **map);
-int		iszeroplayerdoor(char c);
 
 /*----------------------------- Exit ----------------------------------*/
 void	error_exit(char *message);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_textures2_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:27:45 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/10/15 16:18:02 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:58:51 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	calculate_texture_data(t_engine *e)
 		e->wall_x = e->player.posy + e->perpwalldist * e->raydiry;
 	else
 		e->wall_x = e->player.posx + e->perpwalldist * e->raydirx;
-	e->wall_x -= floor(e->wall_x);
+	e->wall_x = e->wall_x - floor(e->wall_x);
 	e->tex_pos = (e->drawstart - SCREEN_HEIGHT / 2
 			+ e->lineheight / 2) * (1.0 * e->current_tex->height
 			/ e->lineheight);

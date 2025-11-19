@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:26:55 by noaziki           #+#    #+#             */
-/*   Updated: 2025/11/14 12:35:13 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/11/19 16:16:19 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ char	*get_data(char *line, char c);
 /*----------------------------- Map Checks -----------------------------*/
 int		check_zero(char c);
 int		check_boundiries(char **map);
-int		iszeroplayerdoor(char c);
 
 /*----------------------------- Exit -----------------------------------*/
 void	error_exit(char *message);
@@ -246,7 +245,6 @@ void	*ft_alloc(size_t i);
 void	close_fd(void);
 
 /*------------------------------ Doors ---------------------------------*/
-void	toggle_door(t_engine *engine, int x, int y);
 void	find_and_toggle_nearby_doors(t_engine *engine);
 void	handle_doors(void *param);
 void	auto_close_doors(t_engine *engine);
