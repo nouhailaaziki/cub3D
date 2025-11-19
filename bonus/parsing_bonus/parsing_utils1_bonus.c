@@ -6,7 +6,7 @@
 /*   By: hajel-ho <hajel-ho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 15:17:24 by hajel-ho          #+#    #+#             */
-/*   Updated: 2025/11/13 16:03:28 by hajel-ho         ###   ########.fr       */
+/*   Updated: 2025/11/15 13:47:11 by hajel-ho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ char	*get_data(char *line, char c)
 		i++;
 	if (c == 'S' || c == 'N' || c == 'W' || c == 'E')
 		i += 2;
-	while (line[i] == ' ')
+	if (line[i] != ' ' && line[i] != '\t')
+		return (NULL);
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	j = ft_strlen(line) - 1;
 	while (j >= i && (line[j] == '\n' || line[j] == '\r'))

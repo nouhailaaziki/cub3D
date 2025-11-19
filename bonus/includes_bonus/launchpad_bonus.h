@@ -208,7 +208,6 @@ char	*get_data(char *line, char c);
 /*----------------------------- Map Checks -----------------------------*/
 int		check_zero(char c);
 int		check_boundiries(char **map);
-int		iszeroplayerdoor(char c);
 
 /*----------------------------- Exit -----------------------------------*/
 void	error_exit(char *message);

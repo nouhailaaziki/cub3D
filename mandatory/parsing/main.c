@@ -19,10 +19,7 @@ int	main(int argc, char **argv)
 	if (validate_args(argc, argv) != 0)
 		return (1);
 	if (new_parsing(argv[1], &engine.data) == 0)
-	{
 		error_exit("Parsing failed");
-		return (1);
-	}
 	if (master(&engine))
 	{
 		close_fd();
