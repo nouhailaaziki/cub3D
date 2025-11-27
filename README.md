@@ -50,101 +50,138 @@ To download MLX42, visit the following link and follow the instructions:
 
 ## Explanation of Keys Concepts
 ### 1. Player Start & Camera Orientation
+The Map Is Just a 2D Grid
+Think of the map like a chess board:
+  - Every cell is 1×1 unit in size
+  - '1' means solid wall
+  - '0' means walkable floor
+  - 'N','S','E','W' are temporary markers that only exist to tell you where the player should spawn and which way they look
+  - 'D','O','M' are bonus objects like doors/enemies
+Nothing is drawn until you decide what to do with this grid.
 See the diagram below for a visual explanation of player initialization and camera orientation.
 ![Player Start & Camera Orientation](tldraw_diagrams/init_data.png)
 
-### 2. mlx_load_png()
+### 2. Raycasting = Shooting 1 Ray Per Screen Column
 
-- It’s a function in MLX42 used to load a PNG file from disk.
+Rendering happens like this: for each x column on your screen, you compute a ray direction.
 
-- It doesn’t create a drawable image directly for the window — instead, it loads a texture (a data structure that holds the raw pixel data + meta info).
+First compute the camera scale:
+```c
+camerax = 2.0 * x / SCREEN_WIDTH - 1.0;
+```
+Now blend direction + plane:
+```c
+raydirx = player.dirx + player.planex * camerax;
+raydiry = player.diry + player.planey * camerax;
+```
 
-What it Returns?
+Meaning:
 
-- Returns a pointer to a mlx_texture_t (texture object), or NULL if loading fails.
+- When camerax = 0 → ray shoots exactly forward
 
-- The texture contains:
+- `>0` → bent right
 
-  - Width and height of the image
+- `<0` → bent left
 
-  - Bytes per pixel (how many bytes make up each pixel)
+- The further from 0, the stronger the plane influence
 
-  - A buffer of the pixel data
+This is how FOV becomes actual visible rays.
 
-This is described in the MLX42 “Textures” documentation. 
-GitHub Wiki
+### 3. Preparing DDA (Digital Differential Analyzer)
 
-Why Use Textures vs Images
+Now you determine how far a ray travels through 1 tile in X or Y:
+```c
+if (raydirx == 0)
+      deltadistx = 1e30;
+else
+      deltadistx = fabs(1 / raydirx);
 
-- Texture: just holds pixel data in memory, but does not know about windows or rendering directly.
+if (raydiry == 0)
+      deltadisty = 1e30;
+else
+      deltadisty = fabs(1 / raydiry);
+```
 
-- Image: used for rendering to a window. You convert a texture into an image (for example with mlx_texture_to_image) when you want to display it on screen. 
-GitHub Wiki
+1e30 is just “infinity but safe”, if a ray is purely vertical/horizontal, you don't want to divide by 0, so you give it a massive distance that will never win the X vs Y comparison, avoiding a crash.
 
-- This design separates loading (texture) from displaying (image), which is efficient.
+### Next: Determine Step direction
 
-### 3. mlx_set_setting(MLX_STRETCH_IMAGE, true)
+If a ray goes left, you step -1 in X each time. If it goes right, +1. Same for Y.
 
-- Purpose: Configures how MiniLibX handles image scaling.
+And you compute the first side distance:
+```c
+sidedistx = (player.posx - mapx) * deltadistx;              // left
+sidedistx = (mapx + 1.0 - player.posx) * deltadistx;       // right
+```
 
-- MLX_STRETCH_IMAGE: Tells MLX to stretch images to fit the drawing area instead of cropping or tiling them.
+This tells you how far from the player’s position to the next X grid line, starting the real DDA walk.
 
-- Why it matters: Prevents textures from looking wrong or distorted when displayed on the screen.
+### 4. DDA Loop = March Until Hit
 
-- Example: If your wall texture is smaller than a wall on the screen, it will be stretched to cover it.
+The function:
+```c
+while (!hit)
+	hit = dda_step(engine, map_height);
+```
+Inside dda_step, we compare X vs Y sidedistance:
+- smallest one wins (closest grid boundary)
+- move mapx += stepx or mapy += stepy
+- check bounds and tile contents
+- if it's a '1' or 'D', that’s a hit → stop.
+This gives you the exact tile that the ray collided with.
 
-### 4. mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Title", false)
+### 5. 3D Projection = Distance → Wall Height
 
-- Purpose: Initializes the MLX graphics library and creates a window.
+To remove fish-eye distortion, we compute perpendicular distance, not raw ray length:
+```c
+perpdist = (mapx - posx + (1 - stepx)/2) / raydirx   // X wall
+perpdist = (mapy - posy + (1 - stepy)/2) / raydiry   // Y wall
+```
+Now convert that to screen size:
+```c
+lineheight = SCREEN_HEIGHT / perpdist;
+drawstart  = -lineheight/2 + SCREEN_HEIGHT/2;
+drawend    =  lineheight/2 + SCREEN_HEIGHT/2;
+```
+So closer wall = taller line. Far wall = shorter line.
+Then you draw a vertical textured strip there.
+The depth buffer saves these distances so sprites/enemies know what is in front of them.
 
-- Arguments:
+### 6. Colors = 32-bit packed ints
 
-  1. SCREEN_WIDTH – width of the window.
+All colors are `32` bits: `0xRRGGBBAA`.
 
-  2. SCREEN_HEIGHT – height of the window.
+`<<24`, `<<16`, `<<8` shifts the r,g,b values into the 32-bit integer to form a final pixel color.
 
-  3. "Title" – text shown on the window’s title bar.
+### 7.  Minimap = Same Math, Different Scale
 
-  4. false – whether the window should be fullscreen (true → fullscreen). In MLX42, that last parameter in mlx_init(width, height, title, fullscreen) does NOT create a real fullscreen window, even if you pass true. That argument is misleading — it only works on some systems and not the way you expect.
+Minimap rendering doesn’t invent new logic. It reuses world positions.
 
-- Return value:
+- Draw a filled circle background
+- For each map tile, compute relative distance to player
+- If it fits inside the circle radius, draw a 6×6 pixel block using the color from `get_tile_color`
+- Player marker is also a `6×6` block in the circle center
+- Circular border is drawn by sampling 0→360° using cos/sin.
 
-  - A pointer to the MLX instance (stored in engine->mlx in my code).
+So the minimap uses the same coordinate system, same unit circle math, same tile meaning, just scaled differently.
 
-  - NULL → failure to create the window.
+### 8. Movement = Direction or Plane Vector + Collision
 
-- Why it’s needed: MLX provides all the graphics functions for drawing, handling images, and creating windows. You can’t draw anything without it.
+Movement uses:
+- dir vector for forward/back
+- plane vector for strafing
+Before confirming movement, collision is checked using check_collision:
+- Map borders are enforced
+- Tiles and door hitboxes block movement
+- `isfinite` avoids NaN/infinite movement bugs
+Pressing ESC prints your farewell message, then closes the window.
 
-### 5. mlx_strerror(mlx_errno)
+### 9. Exit = reverse of boot
 
-Purpose: Converts an MLX error code into a human-readable message.
+After `mlx_loop` ends:
 
-mlx_errno: A global variable that MLX sets when an error occurs.
+- cleanup textures
 
-Example: If creating a window fails, mlx_strerror(mlx_errno) might return "Failed to create window".
+- cleanup enemy textures
 
-Why it’s useful: Helps you understand why something went wrong during initialization.
-
-### 6. mlx_new_image(engine->mlx, SCREEN_WIDTH, SCREEN_HEIGHT)
-
-Purpose: Creates an offscreen image buffer where the game will draw everything before showing it on the screen.
-
-Why use an offscreen buffer:
-
-Prevents flickering.
-
-Lets you draw the entire frame at once before displaying it.
-
-Arguments: Same as the window size.
-
-Return value: A pointer to the image; NULL if it fails.
-
-### 7. cleanup_textures(engine)
-
-Purpose: Frees all textures previously loaded into memory.
-
-Why it’s important:
-
-Prevents memory leaks if something goes wrong.
-
-Usually called if loading textures fails or if the program exits unexpectedly.
+- terminate MLX graphics instance
