@@ -379,8 +379,8 @@ Pressing ESC prints your farewell message, then closes the window.
 After `mlx_loop` ends:
 
 - cleanup textures
-
 - cleanup enemy textures
+- terminate MLX graphics instance
 
 ### 11. Final result
 ![exemple1](tldraw_diagrams/exemple0.gif)
@@ -398,5 +398,3 @@ After `mlx_loop` ends:
 ## Documentation
 
 - Nouhaila Aziki
-
-- terminate MLX graphics instance
