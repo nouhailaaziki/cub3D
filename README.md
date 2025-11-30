@@ -5,7 +5,16 @@ cub3D is a 3D graphical project from the 42 curriculum. The goal is to create a 
 ## 📑 Table of Contents
 1. [MLX42 library](#mlx42-library)
 2. [Explanation of Key Concepts](#explanation-of-keys-concepts)
-
+	1. [Player Start & Camera Orientation](#1-player-start--camera-orientation)
+	2. [The Ray’s Geometric Meaning](#2-the-rays-geometric-meaning)
+	3. [First X/Y Grid Intersection (Side Distances)](#3-first-xy-grid-intersection-side-distances)
+	4. [DDA Grid Traversal (Marching Through Tiles)](#4-dda-grid-traversal-marching-through-tiles)
+	5. [Field of View: All Rays for the Frame](#5-field-of-view-all-rays-for-the-frame)
+	6. [Wall Projection](#6-wall-projection)
+	7. [Colors = 32-bit Packed Ints](#7-colors--32-bit-packed-ints)
+	8. [Minimap = Same Math, Different Scale](#8-minimap--same-math-different-scale)
+	9. [Movement = Direction or Plane Vector + Collision](#9-movement--direction-or-plane-vector--collision)
+	10. [Exit = Reverse of Boot](#10-exit--reverse-of-boot)
 ---
 
 ## MLX42 library
@@ -61,99 +70,285 @@ Nothing is drawn until you decide what to do with this grid.
 See the diagram below for a visual explanation of player initialization and camera orientation.
 ![Player Start & Camera Orientation](tldraw_diagrams/init_data.png)
 
-### 2. Raycasting = Shooting 1 Ray Per Screen Column
+### 2. The Ray’s Geometric Meaning
+![dx, dy](tldraw_diagrams/dx_dy.png)
+This diagram visualizes a single ray that the player shoots in the world. The scene is drawn as:
 
-Rendering happens like this: for each x column on your screen, you compute a ray direction.
+- A grid = your map (each square = 1×1 tile)
+- A player somewhere inside the grid
+- A ray going from the player to some direction
+- Two distances labeled:
+	- dx = horizontal difference
+	- dy = vertical difference
 
-First compute the camera scale:
-```c
-camerax = 2.0 * x / SCREEN_WIDTH - 1.0;
-```
-Now blend direction + plane:
+This diagram explains what a ray direction vector truly is.
+When you compute:
 ```c
 raydirx = player.dirx + player.planex * camerax;
 raydiry = player.diry + player.planey * camerax;
 ```
 
-Meaning:
+You generate a 2D vector pointing somewhere in the world.
 
-- When camerax = 0 → ray shoots exactly forward
+This vector is nothing more than:
+- dx = raydirx
+- dy = raydiry
 
-- `>0` → bent right
+This diagram shows the raw geometry behind the numbers your raycasting code computes.
 
-- `<0` → bent left
+### 3. First X/Y Grid Intersection (side distances)
+![side distances](tldraw_diagrams/sidedest.png)
+This diagram introduces the core of the DDA algorithm:
+- The player stands inside a grid square.
+- A ray shoots at an angle.
+- Two colored distances appear:
+	- One shows the distance to the next vertical grid line
+	- One shows the distance to the next horizontal grid line
 
-- The further from 0, the stronger the plane influence
+These match **sidedistx** and **sidedisty** in your code.
 
-This is how FOV becomes actual visible rays.
-
-### 3. Preparing DDA (Digital Differential Analyzer)
-
-Now you determine how far a ray travels through 1 tile in X or Y:
+Before the ray can march tile by tile, you must compute:
 ```c
-if (raydirx == 0)
-      deltadistx = 1e30;
+if (raydirx < 0)
+    sidedistx = (player.posx - mapx) * deltadistx;
 else
-      deltadistx = fabs(1 / raydirx);
-
-if (raydiry == 0)
-      deltadisty = 1e30;
-else
-      deltadisty = fabs(1 / raydiry);
+    sidedistx = (mapx + 1 - player.posx) * deltadistx;
 ```
 
-1e30 is just “infinity but safe”, if a ray is purely vertical/horizontal, you don't want to divide by 0, so you give it a massive distance that will never win the X vs Y comparison, avoiding a crash.
+and the same for Y.
 
-### Next: Determine Step direction
+### What Are deltadistx and deltadisty?
 
-If a ray goes left, you step -1 in X each time. If it goes right, +1. Same for Y.
+They represent:
 
-And you compute the first side distance:
+```The exact distance a ray must travel to cross one grid line in the X or Y direction.```
+
+Your world is a grid of 1×1 tiles.
+
+A ray moves through this grid diagonally; it is not aligned with X or Y.
+So we must know:
+- If the ray steps one tile in X, how far did it actually travel?
+- If the ray steps one tile in Y, how far did it actually travel?
+
+Because a diagonal movement is longer than a straight movement, the distance per grid-step is not 1.
+That’s what `deltadistx` and `deltadisty` measure.
+
+The diagram shows the first time the ray reaches:
+- A vertical boundary (X-side)
+- A horizontal boundary (Y-side)
+These determine which tile the ray enters next.
+
+You visually see how DDA decides:
 ```c
-sidedistx = (player.posx - mapx) * deltadistx;              // left
-sidedistx = (mapx + 1.0 - player.posx) * deltadistx;       // right
+if (sidedistx < sidedisty)
+    move in X direction
+else
+    move in Y direction
 ```
+### 4. DDA Grid Traversal (marching through tiles)
+![marching through tiles](tldraw_diagrams/check_for_walls.png)
 
-This tells you how far from the player’s position to the next X grid line, starting the real DDA walk.
+This one illustrates the DDA loop itself:
+- A ray travels through multiple tiles
+- Each time it hits a grid boundary:
+	- It moves into the next tile
+	- It adds either:
+		- deltadistx to sidedistx
+		- OR deltadisty to sidedisty
+- Eventually, it hits a wall tile
+The tiles are labelled visually to show which ones the ray traverses.
 
-### 4. DDA Loop = March Until Hit
-
-The function:
+This diagram explains what my code does inside:
 ```c
 while (!hit)
-	hit = dda_step(engine, map_height);
+    hit = dda_step(engine);
 ```
-Inside dda_step, we compare X vs Y sidedistance:
-- smallest one wins (closest grid boundary)
-- move mapx += stepx or mapy += stepy
-- check bounds and tile contents
-- if it's a '1' or 'D', that’s a hit → stop.
-This gives you the exact tile that the ray collided with.
 
-### 5. 3D Projection = Distance → Wall Height
-
-To remove fish-eye distortion, we compute perpendicular distance, not raw ray length:
+Inside dda_step() I do:
 ```c
-perpdist = (mapx - posx + (1 - stepx)/2) / raydirx   // X wall
-perpdist = (mapy - posy + (1 - stepy)/2) / raydiry   // Y wall
+if (sidedistx < sidedisty)
+{
+    sidedistx += deltadistx;
+    mapx += stepx;
+    side = 0;  // hit vertical wall
+}
+else
+{
+    sidedisty += deltadisty;
+    mapy += stepy;
+    side = 1;  // hit horizontal wall
+}
 ```
-Now convert that to screen size:
-```c
-lineheight = SCREEN_HEIGHT / perpdist;
-drawstart  = -lineheight/2 + SCREEN_HEIGHT/2;
-drawend    =  lineheight/2 + SCREEN_HEIGHT/2;
-```
-So closer wall = taller line. Far wall = shorter line.
-Then you draw a vertical textured strip there.
-The depth buffer saves these distances so sprites/enemies know what is in front of them.
 
-### 6. Colors = 32-bit packed ints
+The diagram visualizes this exactly:
+
+- Compare X-side vs Y-side
+
+- Move to the tile whose boundary is hit first
+
+- Repeat until the ray hits a wall
+
+### 5. Field of View: All Rays for the Frame
+![All Rays for the Frame](tldraw_diagrams/final_result.png)
+
+This final diagram displays:
+- The player’s facing direction
+- The camera plane
+- Many rays fanning out across the screen width
+- Walls positioned in the world
+- Rays hitting walls at different distances
+
+This matches my rendering loop:
+```c
+for (x = 0; x < SCREEN_WIDTH; x++)
+{
+    setup_ray();
+    set_ray_deltas();
+    set_initial_sides();
+    perform_dda();
+    calculate_wall_projection();
+    draw_textured_line();
+}
+```
+### 6. WALL PROJECTION
+Wall projection is the final step of raycasting, where you take the 2D collision information from the DDA system and convert it into a vertical line that represents the wall slice in 3D space.
+
+In simpler terms:
+
+`Wall projection transforms a 2D world hit into a 3D screen height.`
+
+At this moment, the raycast has given you:
+
+- The tile that the ray hit (`mapx`, `mapy`)
+
+- Whether the collision happened horizontally or vertically (side)
+
+- The direction of the ray (`raydirx`, `raydiry`)
+
+- The player’s position (`posx`, `posy`)
+
+- The step direction (`stepx`, `stepy`)
+
+Now you must compute how far away that wall is from the player.
+
+### WHY YOU MUST USE PERPENDICULAR DISTANCE (NOT RAW RAY LENGTH)
+
+Imagine standing in front of a wall and looking forward.
+- The wall directly in front of you looks tall.
+- Walls at an angle appear short, because your eye is not perpendicular to them.
+
+If you used the raw length of the ray (a diagonal), walls would stretch and shrink incorrectly:
+
+This is called **fish-eye** distortion.
+
+Perpendicular distance fixes this
+
+Perpendicular distance is the projection of the ray onto the camera’s orientation vector — the true “forward” distance.
+
+My code:
+```c
+if (engine->side == 0)
+    engine->perpwalldist = (engine->mapx - engine->player.posx
+        + (1 - engine->stepx) / 2) / engine->raydirx;
+else
+    engine->perpwalldist = (engine->mapy - engine->player.posy
+        + (1 - engine->stepy) / 2) / engine->raydiry;
+```
+
+This gives the true shortest distance from the player to the wall plane.
+
+### WHAT THIS FORMULA MEANS EXACTLY
+
+If the ray hit a vertical wall (side = 0):
+```c
+perp = (distance from player to that vertical grid line) / raydirx
+```
+If the ray hit a horizontal wall (side = 1):
+```c
+perp = (distance from player to that horizontal grid line) / raydiry
+```
+
+This division is extremely important:
+```Because `raydir`x or `raydiry` tells you how far along the ray you must travel in world units to reach 1 unit in that axis.```
+Thus the formula gives the exact ray-distance along the camera’s forward projection, not the diagonal ray-length.
+
+### CONVERTING DISTANCE INTO WALL HEIGHT
+
+This is the famous pinhole-camera formula:
+```c
+engine->lineheight = (int)(SCREEN_HEIGHT / engine->perpwalldist);
+```
+
+This is equivalent to:
+```c
+projected_height = constant / distance
+```
+
+Where the constant is screen height.
+
+### Why does dividing by distance work?
+
+Because in perspective projection:
+- Objects close to you look big (small denominator → large result)
+- Objects far away look small (large denominator → small result)
+
+This single mathematical relationship creates the entire illusion of 3D depth.
+
+### FINDING WHERE THE WALL LINE STARTS AND ENDS
+
+The midpoint of the screen is your camera's eye level.
+
+Your line is centered around that midpoint:
+```c
+engine->drawstart = -engine->lineheight / 2 + SCREEN_HEIGHT / 2;
+engine->drawend   =  engine->lineheight / 2 + SCREEN_HEIGHT / 2;
+```
+
+Conceptually:
+```c
+SCREEN MIDDLE
+     ↓
+ ------------------------
+|          ↕            |
+|     (wall slice)      |
+|          ↕            |
+ ------------------------
+```
+
+This ensures:
+
+- Every wall is vertically centered
+- Tall walls extend above and below the midpoint
+- Short walls stay near the middle
+- Ceiling remains above
+- Floor remains below
+
+You clamp the values so the wall does not draw outside the screen:
+```c
+if (engine->drawstart < 0)
+    engine->drawstart = 0;
+if (engine->drawend >= SCREEN_HEIGHT)
+    engine->drawend = SCREEN_HEIGHT - 1;
+```
+### PUTTING EVERYTHING TOGETHER
+1. The entire wall projection process:
+2. DDA finds the exact tile the ray hit.
+3. Determine which side was hit (vertical/horizontal).
+4. Compute perpendicular wall distance.
+5. Compute line height = screen_height / distance.
+6. Compute start and end positions vertically.
+7. Draw one vertical textured line at screen column x.
+8. Repeat for every screen column → you get a full 3D view.
+
+This is how DOOM, Wolfenstein 3D, and our cub3d create 3D graphics from a 2D map.
+
+### 7. Colors = 32-bit packed ints
 
 All colors are `32` bits: `0xRRGGBBAA`.
 
 `<<24`, `<<16`, `<<8` shifts the r,g,b values into the 32-bit integer to form a final pixel color.
 
-### 7.  Minimap = Same Math, Different Scale
+### 8. Minimap = Same Math, Different Scale
 
 Minimap rendering doesn’t invent new logic. It reuses world positions.
 
@@ -165,7 +360,7 @@ Minimap rendering doesn’t invent new logic. It reuses world positions.
 
 So the minimap uses the same coordinate system, same unit circle math, same tile meaning, just scaled differently.
 
-### 8. Movement = Direction or Plane Vector + Collision
+### 9. Movement = Direction or Plane Vector + Collision
 
 Movement uses:
 - dir vector for forward/back
@@ -176,7 +371,7 @@ Before confirming movement, collision is checked using check_collision:
 - `isfinite` avoids NaN/infinite movement bugs
 Pressing ESC prints your farewell message, then closes the window.
 
-### 9. Exit = reverse of boot
+### 10. Exit = reverse of boot
 
 After `mlx_loop` ends:
 
