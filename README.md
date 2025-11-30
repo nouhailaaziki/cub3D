@@ -394,7 +394,3 @@ After `mlx_loop` ends:
 
 - Nouhaila Aziki  
 - Hajar El Houbbadi
-
-## Documentation
-
-- Nouhaila Aziki
