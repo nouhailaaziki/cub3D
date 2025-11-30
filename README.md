@@ -15,6 +15,8 @@ cub3D is a 3D graphical project from the 42 curriculum. The goal is to create a 
 	8. [Minimap = Same Math, Different Scale](#8-minimap--same-math-different-scale)
 	9. [Movement = Direction or Plane Vector + Collision](#9-movement--direction-or-plane-vector--collision)
 	10. [Exit = Reverse of Boot](#10-exit--reverse-of-boot)
+3. [Contributors](#contributors)  
+4. [Documentation](#documentation)
 ---
 
 ## MLX42 library
@@ -378,5 +380,14 @@ After `mlx_loop` ends:
 - cleanup textures
 
 - cleanup enemy textures
+
+## Contributors
+
+- Nouhaila Aziki  
+- Hajar El Houbbadi
+
+## Documentation
+
+- Nouhaila Aziki
 
 - terminate MLX graphics instance
