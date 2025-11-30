@@ -15,6 +15,7 @@ cub3D is a 3D graphical project from the 42 curriculum. The goal is to create a 
 	8. [Minimap = Same Math, Different Scale](#8-minimap--same-math-different-scale)
 	9. [Movement = Direction or Plane Vector + Collision](#9-movement--direction-or-plane-vector--collision)
 	10. [Exit = Reverse of Boot](#10-exit--reverse-of-boot)
+ 	11. [Final result](#11-final-result)
 3. [Contributors](#contributors)  
 4. [Documentation](#documentation)
 ---
@@ -380,6 +381,14 @@ After `mlx_loop` ends:
 - cleanup textures
 
 - cleanup enemy textures
+
+### 11. Final result
+![exemple1](tldraw_diagrams/exemple0.gif)
+![exemple1](tldraw_diagrams/exemple1.jpeg)
+![exemple2](tldraw_diagrams/exemple2.jpeg)
+![exemple3](tldraw_diagrams/exemple3.jpeg)
+![exemple4](tldraw_diagrams/exemple4.jpeg)
+
 
 ## Contributors
 
